@@ -1,0 +1,12 @@
+title: Treinamento Telemetria — Serra Rocketry
+description: Repositório de treinamento do time de telemetria
+markdown: kramdown
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: false
+exclude:
+  - .github/
+  - .gitignore
+  - README-alunos.md
