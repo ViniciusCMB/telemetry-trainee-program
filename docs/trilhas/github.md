@@ -1,42 +1,236 @@
 # Trilha GitHub
 
+GitHub é a plataforma central do treinamento e dos projetos da Serra Rocketry. Todo o fluxo de trabalho — desde issues até PRs e revisões — é feito aqui. Os repositórios Helike e Flight Computer também seguem este mesmo fluxo.
+
+## O que você vai aprender
+
+- Git básico (clone, add, commit, push, pull)
+- Estratégia de branches do time
+- Criar issues com critérios claros
+- Abrir e revisar Pull Requests
+- Colaborar usando o fluxo do GitHub
+
+---
+
+## 1. Git básico
+
+### 1.1 Configuração inicial
+
+```bash
+git config --global user.name "Seu Nome"
+git config --global user.email "seu@email.com"
+```
+
+### 1.2 Comandos essenciais
+
+```bash
+# Clonar o repositório
+git clone https://github.com/ViniciusCMB/telemetry-trainee-program.git
+
+# Ver status das alterações
+git status
+
+# Adicionar arquivos ao staging
+git add arquivo.py
+git add .  # adiciona tudo
+
+# Commitar
+git commit -m "descrição curta e objetiva do que foi feito"
+
+# Enviar para o GitHub
+git push origin nome-da-branch
+
+# Atualizar sua branch com a main
+git pull origin main
+```
+
+### 1.3 Boas práticas de commit
+
+- **Mensagens curtas e descritivas** (máximo 72 caracteres no título)
+- **Presente imperativo**: "Adiciona parser de pacote" em vez de "Adicionei parser"
+- **Commits atômicos**: cada commit faz uma única alteração lógica
+- **Exemplos bons**:
+  - `Adiciona leitura de CSV de telemetria`
+  - `Corrige validação de altitude negativa`
+  - `Refatora parser para usar DictReader`
+- **Exemplos ruins**:
+  - `Update` (não diz o que mudou)
+  - `fix` (genérico demais)
+  - `varios ajustes` (muita coisa num commit só)
+
+---
+
+## 2. Estratégia de branches
+
+No treinamento, cada membro trabalha em sua própria branch:
+
+```
+main
+ └── vinicius-souza      # branch pessoal
+ └── maria-silva         # branch pessoal
+ └── joao-pereira        # branch pessoal
+```
+
+```bash
+# Criar e trocar para sua branch
+git checkout -b seu-nome-sobrenome
+
+# Enviar a branch para o GitHub
+git push -u origin seu-nome-sobrenome
+```
+
+> **Regra**: nunca commitar diretamente na `main`. Sempre usar branch pessoal e abrir PR.
+
+---
+
+## 3. Issues
+
+Issues são usadas para descrever tarefas, bugs ou melhorias. Cada semana de treinamento tem uma issue associada.
+
+### 3.1 Estrutura de uma issue
+
+```
 ## Objetivo
+<descrição clara do que precisa ser feito>
 
-Padronizar o fluxo de trabalho com issues, branches e PRs.
+## Tarefas
+- [ ] tarefa 1
+- [ ] tarefa 2
+- [ ] tarefa 3
 
-## Competencias esperadas
+## Critérios de aceite
+- [ ] critério 1
+- [ ] critério 2
 
-- Abrir issue clara
-- Trabalhar em branch nomeada corretamente
-- Abrir PR com template preenchido
+## Referências
+- Link para trilha
+- Link para exemplo
+```
 
-## Pre-requisitos
+### 3.2 Boas práticas
 
-- Conta GitHub
-- Git instalado
+- Título claro: `Semana 1 — Leitura de CSV de telemetria`
+- Use checklists para tarefas e critérios de aceite
+- Atribua a si mesmo (assignee)
+- Adicione labels: `semana-1`, `python`, `trainee`
+- Consulte as [issues semanais de exemplo](../issues-semanais/)
 
-## Conteudos
+**Exemplo real** — Os repositórios Helike e Flight Computer usam issues para planejar sprints, com labels como `firmware`, `hardware`, `test`, e milestones por fase.
 
-1. **Issues** (descricao clara + criterios)
-2. **Branches** (`nome-sobrenome`)
-3. **Pull Requests** (template + revisao)
+---
 
-## Exercicios sugeridos
+## 4. Pull Requests
 
-1. Criar issue com criterios claros
-2. Criar branch e subir alteracoes
-3. Abrir PR com checklist completo
+O PR é o mecanismo de entrega do treinamento. Toda semana você abre um PR da sua branch para `main`.
 
-## Proximo nivel (opcional)
+### 4.1 Abrindo um PR
 
-- Padrao de mensagens de commit (curto e objetivo)
+1. Faça suas alterações na branch `seu-nome-sobrenome`
+2. Commit e push
+3. No GitHub, clique em "Pull Request"
+4. Preencha o [template de PR](../../templates/pr-template.md)
+5. Solicite revisão
+
+### 4.2 Template de PR
+
+```markdown
+## Semana X — <título da semana>
+
+## O que foi feito
+- [ ] tarefa 1
+- [ ] tarefa 2
+
+## Como testar
+1. Comandos para executar
+2. Saída esperada
+
+## Critérios de aceite
+- [ ] código executa sem erros
+- [ ] README atualizado
+
+## Dificuldades
+- O que travou? Como resolveu?
+```
+
+### 4.3 Revisão de PR
+
+Na revisão semanal, o instrutor (ou um colega) vai revisar seu código:
+
+1. **Leia o código** — entenda o que foi feito
+2. **Teste localmente** — checkout na branch e execute
+3. **Comente** — aponte sugestões e perguntas
+4. **Aprove ou peça mudanças**
+
+> Revisão não é fiscalização — é mentoria. O objetivo é todo mundo aprender.
+
+---
+
+## 5. Fluxo completo do treinamento
+
+```
+1. Instrutor abre issue da semana
+2. Trainee lê a issue e a trilha correspondente
+3. Trainee cria branch "nome-sobrenome" (uma vez só)
+4. Trainee faz as tarefas, commit e push
+5. Trainee abre PR usando o template
+6. Instrutor revisa no encontro semanal
+7. PR é aprovado e mergeado
+8. Avança para a próxima semana 🚀
+```
+
+---
+
+## 6. GitHub Projects (Kanban)
+
+Os projetos podem usar Projects para acompanhar o progresso:
+
+- **Backlog** — issues a fazer
+- **Em andamento** — issues sendo trabalhadas
+- **Em revisão** — PRs abertos aguardando review
+- **Concluído** — PRs mergeados
+
+---
+
+## Exercícios práticos
+
+### Nível 1 — Setup
+
+1. Crie sua conta GitHub (se não tiver).
+2. Configure git local (nome, email).
+3. Clone este repositório.
+4. Crie sua branch `seu-nome-sobrenome`.
+
+### Nível 2 — Primeira entrega
+
+1. Adicione um arquivo `README.md` na raiz com seu nome e objetivos.
+2. Commit com mensagem descritiva.
+3. Push para sua branch.
+4. Abra um PR para `main` usando o template.
+
+### Nível 3 — Colaboração
+
+1. Revise o PR de um colega.
+2. Deixe pelo menos um comentário construtivo.
+3. Responda aos comentários no seu próprio PR.
+4. Faça as alterações solicitadas e dê push.
+
+### Nível 4 — Resolução de conflitos
+
+1. Simule um conflito: dois trainees editam a mesma linha em branches diferentes.
+2. Resolva o conflito no PR (resolve no GitHub ou localmente).
+3. Complete o merge.
+
+---
 
 ## Entregas relacionadas
 
-- Semana 0: PR “hello world”
-- Revisoes semanais de PR
+- [Semana 0](../semanas/semana-00.md): Setup + PR "hello world"
+- Todas as semanas: PR com entrega semanal
 
-## Criterios de aceite (base)
+## Critérios de aceite
 
-- PR segue template
-- Branch nomeada corretamente
+- Branch nomeada como `nome-sobrenome`
+- PR segue o template
+- README com instruções
+- Commits com mensagens claras
+- Participou da revisão de PR

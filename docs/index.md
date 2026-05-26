@@ -14,11 +14,11 @@ Bem-vindo ao treinamento do time de telemetria da Serra Rocketry.
 - [Melhorias Futuras](melhorias-futuras.md)
 - [Checklist Release Candidate](checklist-release-candidate.md)
 
-## Navegação rápida
+## Aprendizado
 
-- [Semanas do Treinamento](semanas/README.md)
+- [Trilhas de Conteudo](trilhas/README.md) — Python, Arduino, PlatformIO, KiCad, GitHub
+- [Semanas do Treinamento](semanas/README.md) — roteiros semanais com entregas
 - [Issues Semanais (Exemplos)](issues-semanais/README.md)
-- [Trilhas de Conteudo](trilhas/README.md)
 - [Exemplos Minimos](examples/README.md)
 
 ## Padrões e suporte
