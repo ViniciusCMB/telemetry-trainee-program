@@ -1,0 +1,45 @@
+name: CI — Validação de PR
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  python:
+    name: Python lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: |
+          pip install pylint
+          find . -name "*.py" -not -path "./.pio/*" -not -path "./venv/*" \
+            -exec pylint --exit-zero {} \;
+
+  platformio:
+    name: PlatformIO build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install platformio
+      - name: Build native tests
+        run: |
+          if [ -f platformio.ini ]; then
+            pio test -e native || echo "No native env or test failed — non-blocking"
+          fi
+
+  markdown:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: "**/*.md"
+          ignore: ".github/** node_modules/** .pio/** venv/**"

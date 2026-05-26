@@ -12,10 +12,11 @@ Conteudo didatico organizado por tecnologia. Cada trilha ensina conceitos conect
 
 ## Como usar
 
-1. Leia a trilha correspondente à semana antes de começar as tarefas
-2. Faça os exercícios propostos em cada nível
-3. Consulte os [exemplos](../examples/) para ver código funcional
-4. Abra dúvidas na issue da semana
+1. Faça o [quiz](../quiz/) da semana para testar seus conhecimentos
+2. Veja os [slides](../slides/) da semana (apresentação de 20-30 min)
+3. Leia a trilha correspondente antes de começar as tarefas
+4. Consulte os [exemplos](../examples/) para ver código funcional
+5. Abra dúvidas na issue da semana
 
 ## Mapa trilha × semana
 

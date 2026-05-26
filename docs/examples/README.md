@@ -1,11 +1,11 @@
-# Exemplos Minimos
+# Exemplos Mínimos
 
-Exemplos simples para guiar as entregas semanais. Cada exemplo e um ponto de partida, nao uma solucao final.
+Código funcional para cada tecnologia do treinamento.
 
-## Indice
-
-- [python-exemplo.md](python-exemplo.md)
-- [arduino-ide-exemplo.md](arduino-ide-exemplo.md)
-- [platformio-exemplo.md](platformio-exemplo.md)
-- [kicad-exemplo.md](kicad-exemplo.md)
-- [github-exemplo.md](github-exemplo.md)
+| Exemplo | Descrição |
+|---|---|
+| [Python](python-exemplo.md) | Leitura de CSV + estatísticas + gráfico |
+| [Arduino IDE](arduino-ide-exemplo.md) | Sensor BMP280 + serial a 20 Hz |
+| [PlatformIO](platformio-exemplo.md) | Projeto modular + teste nativo Unity |
+| [KiCad](kicad-exemplo.md) | Esquemático MCU + sensor I2C |
+| [GitHub](github-exemplo.md) | Fluxo de PR com template |
