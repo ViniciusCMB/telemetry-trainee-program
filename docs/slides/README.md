@@ -1,6 +1,10 @@
+---
+layout: default
+---
+
 # Slide Decks — Apresentações Semanais
 
-Slidespara cada semana do treinamento. Use as setas do teclado para navegar.
+Slides para cada semana do treinamento. Use as setas do teclado para navegar.
 
 | Semana | Tópico | Slides |
 |---|---|---|
