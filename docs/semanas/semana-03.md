@@ -132,7 +132,7 @@ Adicione um botão no GPIO 2 que alterna o LED quando pressionado, com debounce 
 - [ ] BMP280 responde no scan I2C
 - [ ] Serial envia pacotes formatados a 20 Hz constante
 - [ ] Pacotes no formato `#campos#`
-- [ ] Commit com prefixo `ard:`
+- [ ] Commit com tipo semântico (ex: `feat:`, `docs:`, `build:`)
 - [ ] README com esquema de ligação dos pinos
 
 ## Armadilhas comuns

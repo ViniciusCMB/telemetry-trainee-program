@@ -150,7 +150,7 @@ Rode: `pio test -e native`
 - [ ] Código organizado em `src/`, `lib/`, `test/`
 - [ ] `platformio.ini` com dois ambientes (esp32c3 + native)
 - [ ] Testes nativos passam (`pio test -e native`)
-- [ ] Commit com prefixo `pio:`
+- [ ] Commit com tipo semântico (ex: `build:`, `feat:`, `test:`)
 - [ ] README com instruções de build
 
 ## Armadilhas comuns

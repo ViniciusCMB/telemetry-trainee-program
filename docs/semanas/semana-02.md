@@ -117,7 +117,7 @@ O checksum é o XOR de todos os bytes entre `#...#`. Rejeite pacotes com checksu
 - [ ] Parser rejeita formatos inválidos (sem `#`, campos a menos, NaN)
 - [ ] Validador rejeita valores fora do range físico
 - [ ] Estatísticas de parse × validação no final
-- [ ] Commit com prefixo `py:`
+- [ ] Commit com tipo semântico (ex: `feat:`, `test:`, `refactor:`)
 - [ ] README com exemplos de uso
 
 ## Armadilhas comuns

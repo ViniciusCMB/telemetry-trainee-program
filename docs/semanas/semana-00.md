@@ -75,7 +75,7 @@ git push -u origin seu-nome-sobrenome
 
 - [ ] Branch nomeada como `seu-nome-sobrenome`
 - [ ] README pessoal na raiz do projeto
-- [ ] Commit com prefixo `git:` seguindo a convenção
+- [ ] Commit com tipo semântico (`docs:`, `feat:`, ...)
 - [ ] PR segue o template
 - [ ] Instrutor consegue fazer checkout da branch
 
@@ -87,7 +87,7 @@ git push -u origin seu-nome-sobrenome
 
 ## Conexão com projetos reais
 
-No Flight Computer e no Helike, todo o desenvolvimento segue o mesmo fluxo: branch pessoal, commits com prefixo, PR com revisão. A Semana 0 é a base para tudo que vem a seguir.
+No Flight Computer e no Helike, todo o desenvolvimento segue o mesmo fluxo: branch pessoal, commits semânticos, PR com revisão. A Semana 0 é a base para tudo que vem a seguir.
 
 ## Referências
 

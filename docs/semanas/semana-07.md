@@ -85,7 +85,7 @@ Destaque onde cada semana do treinamento se encaixa:
 - [ ] Resumo do Flight Computer com diagrama e tabela de hardware
 - [ ] Resumo do Helike com diagrama e fluxo de dados
 - [ ] Mapa conceitual mostrando a conexão entre as áreas
-- [ ] Compromissos com prefixo `git:`
+- [ ] Commits com tipo semântico (ex: `docs:`, `feat:`, `refactor:`)
 - [ ] README com links para os repositórios
 
 ## Dicas

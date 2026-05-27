@@ -17,7 +17,7 @@ Logs, prints ou resultados do script.
 ## Checklist
 
 - [ ] Branch segue o padrão `nome-sobrenome`
-- [ ] Commits com prefixo (`git:`, `py:`, `ard:`, `pio:`, `kic:`)
+- [ ] Commits com tipo semântico (`feat`, `fix`, `docs`, `test`, ...)
 - [ ] Código executa sem erros
 - [ ] README atualizado com instruções
 

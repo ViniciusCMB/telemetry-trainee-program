@@ -95,7 +95,7 @@ Gráfico de altitude: ![perfil](perfil_voo.png)
 - [ ] Apogeu detectado e marcado
 - [ ] README completo com instruções e resultados
 - [ ] Repositório organizado (src/, lib/, test/ se PlatformIO)
-- [ ] Commits com prefixos (`ard:`, `py:`, `pio:`)
+- [ ] Commits com tipo semântico (`feat:`, `build:`, `docs:`, `fix:`, `test:`, ...)
 
 ## Entregáveis
 

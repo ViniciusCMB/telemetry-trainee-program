@@ -44,32 +44,48 @@ git push origin nome-da-branch
 git pull origin main
 ```
 
-### 1.3 Convenção de commits
+### 1.3 Mensagens de commit
 
-Use o formato `prefixo(3 letras): descrição`:
+Commit messages são fundamentais para entender cada mudança.  
+Pergunte-se: *"Por que essa alteração foi feita?"* — a resposta é o que não está óbvio no diff do código.
+
+Formato:
 
 ```
-<prefixo>: <descrição concisa no presente imperativo>
+<tipo>: <descrição concisa no presente>
 ```
 
-**Prefixos por tecnologia:**
+**Regras:**
+- **Presente imperativo**: "Adiciona parser" em vez de "Adicionei parser"
+- **Curta e objetiva** (máximo 72 caracteres no título)
+- **Explique o motivo**, não só o que foi mudado
+- **Commits atômicos**: cada commit faz uma única alteração lógica
 
-| Prefixo | Tecnologia |
+#### Tipos semânticos
+
+| Tipo | Quando usar |
 |---|---|
-| `git` | GitHub, git, PRs, issues |
-| `py` | Python |
-| `ard` | Arduino IDE |
-| `pio` | PlatformIO |
-| `kic` | KiCad |
+| `feat` | Novo recurso ou funcionalidade |
+| `fix` | Correção de bug |
+| `docs` | Mudanças em documentação (README, comentários) |
+| `test` | Alterações em testes unitários |
+| `build` | Mudanças em build, dependências, CI |
+| `perf` | Melhorias de performance |
+| `style` | Formatação, lint, espaços — sem mudança lógica |
+| `refactor` | Refatoração sem mudança de comportamento |
+| `chore` | Tarefas administrativas, gitignore, config |
+| `ci` | Integração contínua (GitHub Actions) |
+| `raw` | Dados, configurações, parâmetros |
+| `cleanup` | Remoção de código comentado ou morto |
+| `remove` | Exclusão de arquivos ou funcionalidades |
 
 **Exemplos bons:**
 ```
-git: adiciona README pessoal
-py: implementa parser de pacote de telemetria
-ard: configura leitura do BMP280 via I2C
-pio: adiciona ambiente de teste nativo
-kic: cria esquemático do sensor BMP280
-fix: corrige validação de altitude negativa
+feat: adiciona parser de pacote de telemetria
+fix: valida altitude negativa antes do cálculo da média
+docs: atualiza README com instruções de setup
+test: adiciona teste para detecção de apogeu
+refactor: extrai validação de dados para módulo separado
 ```
 
 **Exemplos ruins:**
@@ -79,11 +95,6 @@ fix
 varios ajustes
 teste
 ```
-
-**Regras:**
-- **Mensagens curtas e objetivas** (máximo 72 caracteres)
-- **Presente imperativo**: "Adiciona parser" em vez de "Adicionei parser"
-- **Commits atômicos**: cada commit faz uma única alteração lógica
 
 ---
 

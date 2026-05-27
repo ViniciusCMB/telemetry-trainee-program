@@ -86,7 +86,7 @@ fig, ax = plt.subplots()
 - [ ] CSV de saída com dados limpos
 - [ ] Log de erros separado
 - [ ] Roda por 5+ minutos sem travar
-- [ ] Commit com prefixo `py:` ou `ard:`
+- [ ] Commit com tipo semântico (ex: `feat:`, `docs:`, `build:`, `fix:`)
 - [ ] README com instruções de execução
 
 ## Armadilhas comuns

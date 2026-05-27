@@ -94,7 +94,7 @@ plt.savefig("perfil_voo.png")
 - [ ] Script roda sem erros em diferentes CSVs
 - [ ] Estatísticas corretas (confira na mão para 3 linhas)
 - [ ] Resumo salvo em arquivo
-- [ ] Commit com prefixo `py:`
+- [ ] Commit com tipo semântico (ex: `feat:`, `docs:`, `test:`)
 - [ ] README com instruções de execução
 
 ## Armadilhas comuns

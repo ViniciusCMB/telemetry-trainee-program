@@ -97,7 +97,7 @@ Vá para o Pcbnew (F8 para importar do esquemático):
 - [ ] ERC sem erros críticos
 - [ ] PDF do esquemático exportado
 - [ ] Componentes com footprints atribuídos
-- [ ] Commit com prefixo `kic:`
+- [ ] Commit com tipo semântico (ex: `feat:`, `docs:`, `raw:`)
 - [ ] README descrevendo o circuito
 
 ## Armadilhas comuns
