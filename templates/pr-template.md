@@ -1,21 +1,26 @@
-# Titulo do PR
+# Semana X — Título da Semana
 
 ## O que foi feito
 
-- Item 1
-- Item 2
+- [ ] tarefa 1
+- [ ] tarefa 2
 
 ## Como testar
 
-- Passo 1
-- Passo 2
+1. Comandos para executar
+2. Saída esperada
 
-## Evidencias
+## Evidências
 
-- Logs, prints ou resultados do script
+Logs, prints ou resultados do script.
 
 ## Checklist
 
-- [ ] Minha branch segue o padrao `nome-sobrenome`
-- [ ] Atualizei o README (se necessario)
-- [ ] A tarefa principal esta concluida
+- [ ] Branch segue o padrão `nome-sobrenome`
+- [ ] Commits com prefixo (`git:`, `py:`, `ard:`, `pio:`, `kic:`)
+- [ ] Código executa sem erros
+- [ ] README atualizado com instruções
+
+## Dificuldades
+
+- O que travou? Como resolveu?

@@ -18,9 +18,9 @@ git checkout -b maria-silva
 echo "# Maria Silva - Trainee Telemetria" > README.md
 echo "Objetivo: aprender Python e Arduino para atuar no Helike" >> README.md
 
-# 4. Commitar
+# 4. Commitar (use o prefixo da tecnologia)
 git add README.md
-git commit -m "Adiciona README pessoal com objetivo"
+git commit -m "git: adiciona README pessoal com objetivo"
 
 # 5. Enviar para o GitHub
 git push -u origin maria-silva

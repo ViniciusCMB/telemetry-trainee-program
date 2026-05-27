@@ -44,19 +44,46 @@ git push origin nome-da-branch
 git pull origin main
 ```
 
-### 1.3 Boas práticas de commit
+### 1.3 Convenção de commits
 
-- **Mensagens curtas e descritivas** (máximo 72 caracteres no título)
-- **Presente imperativo**: "Adiciona parser de pacote" em vez de "Adicionei parser"
+Use o formato `prefixo(3 letras): descrição`:
+
+```
+<prefixo>: <descrição concisa no presente imperativo>
+```
+
+**Prefixos por tecnologia:**
+
+| Prefixo | Tecnologia |
+|---|---|
+| `git` | GitHub, git, PRs, issues |
+| `py` | Python |
+| `ard` | Arduino IDE |
+| `pio` | PlatformIO |
+| `kic` | KiCad |
+
+**Exemplos bons:**
+```
+git: adiciona README pessoal
+py: implementa parser de pacote de telemetria
+ard: configura leitura do BMP280 via I2C
+pio: adiciona ambiente de teste nativo
+kic: cria esquemático do sensor BMP280
+fix: corrige validação de altitude negativa
+```
+
+**Exemplos ruins:**
+```
+Update
+fix
+varios ajustes
+teste
+```
+
+**Regras:**
+- **Mensagens curtas e objetivas** (máximo 72 caracteres)
+- **Presente imperativo**: "Adiciona parser" em vez de "Adicionei parser"
 - **Commits atômicos**: cada commit faz uma única alteração lógica
-- **Exemplos bons**:
-  - `Adiciona leitura de CSV de telemetria`
-  - `Corrige validação de altitude negativa`
-  - `Refatora parser para usar DictReader`
-- **Exemplos ruins**:
-  - `Update` (não diz o que mudou)
-  - `fix` (genérico demais)
-  - `varios ajustes` (muita coisa num commit só)
 
 ---
 
