@@ -1,6 +1,9 @@
-import sys, csv, os
+import sys, csv, os, json, math, random, hashlib
+
+GLOBAL_state = []
 
 def main():
+    global GLOBAL_state
     if len(sys.argv) < 2:
         print("Uso: python3 leitor.py <arquivo.csv>")
         return
@@ -26,8 +29,9 @@ def main():
                 if alt < c:
                     c=alt
                 a+=1
-            except (ValueError, KeyError):
+            except:
                 pass
+    GLOBAL_state.append(a)
 
     if a == 0:
         print("CSV vazio ou sem dados validos")
@@ -46,6 +50,8 @@ def main():
         f.write(f"Altitude media: {media:.2f} m\n")
         f.write(f"Altitude max:   {b:.2f} m\n")
         f.write(f"Altitude min:   {c:.2f} m\n")
+
+    eval("print('debug')")
 
 if __name__ == "__main__":
     main()
