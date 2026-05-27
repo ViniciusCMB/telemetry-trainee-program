@@ -37,3 +37,16 @@ D --> E[Revisao semanal]
 - Foque no essencial
 - Documente o mínimo para reprodução
 - Pergunte cedo se travar
+
+## 💻 Nota sobre o sistema operacional
+
+Todo o treinamento foi desenvolvido e testado em **Linux**. Os comandos, paths (`/dev/ttyACM0`, `~/.bashrc`) e instruções de permissão refletem esse ambiente.
+
+Se você usa **Windows**, algumas adaptações são necessárias:
+- **Porta serial**: `COM3`, `COM4` etc. (em vez de `/dev/ttyACM0`)
+- **Git**: use Git Bash ou WSL para comandos no terminal
+- **Python**: certifique-se de que `python` (ou `py`) está no PATH
+- **PlatformIO**: funciona normalmente via VSCode. A porta de upload é detectada automaticamente
+- **Drivers**: ESP32-C3 pode precisar de driver CP2102 ou CH340 no Windows
+
+Quando encontrar algo que não funciona igual, pesquise `"<comando> windows"` ou pergunte na issue da semana.
