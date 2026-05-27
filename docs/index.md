@@ -6,7 +6,7 @@ Bem-vindo ao treinamento do time de telemetria e controle da **Serra Rocketry**.
 
 - [Guia do Aluno](guia-do-aluno.md)
 - [Roadmap 8 semanas](roadmap-8-semanas.md)
-- [Diagrama das Semanas](diagrama-semanas.md)
+- [Diagrama das Semanas](diagrama-semanas.html)
 - [Calendário](calendario.md)
 - [Visão Geral](visao-geral.md)
 - [FAQ](faq.md)
