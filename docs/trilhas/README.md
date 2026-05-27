@@ -16,7 +16,10 @@ Conteudo didatico organizado por tecnologia. Cada trilha ensina conceitos conect
 2. Veja os [slides](../slides/) da semana (apresentação de 20-30 min)
 3. Leia a trilha correspondente antes de começar as tarefas
 4. Consulte os [exemplos](../examples/) para ver código funcional
-5. Abra dúvidas na issue da semana
+5. Consulte o [glossário](../glossario.md) se encontrar um termo novo
+6. Veja a [BOM](../bom.md) para conferir os componentes necessários
+7. Se travar, veja o [troubleshooting](../troubleshooting.md)
+8. Abra dúvidas na issue da semana
 
 ## Mapa trilha × semana
 
