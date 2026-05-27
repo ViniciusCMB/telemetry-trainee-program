@@ -9,7 +9,7 @@ Implementar um parser de pacotes de telemetria e um validador de dados.
 - [ ] Semana 1 concluída
 - [ ] Ler a [Trilha Python](../trilhas/python.md) (seções 1.2 e 1.3)
 - [ ] Ver o [Slide deck](../slides/semana-02.html)
-- [ ] Fazer o [Quiz](../quiz/semana-02.md)
+- [ ] Fazer o [Quiz](../quiz/semana-02.html)
 
 ## Problema
 
@@ -98,4 +98,4 @@ Resumo:
 
 - [Trilha Python](../trilhas/python.md)
 - [Slide deck](../slides/semana-02.html)
-- [Quiz](../quiz/semana-02.md)
+- [Quiz](../quiz/semana-02.html)

@@ -11,7 +11,7 @@ Programar um ESP32-C3 para ler sensor BMP280 e enviar dados formatados pela seri
 - [ ] BMP280 + protoboard + jumpers
 - [ ] Ler a [Trilha Arduino IDE](../trilhas/arduino-ide.md) (seções 1, 3, 4)
 - [ ] Ver o [Slide deck](../slides/semana-03.html)
-- [ ] Fazer o [Quiz](../quiz/semana-03.md)
+- [ ] Fazer o [Quiz](../quiz/semana-03.html)
 
 ## Problema
 
@@ -94,4 +94,4 @@ Adapte o código para enviar pacotes a **20 Hz** no formato:
 
 - [Trilha Arduino IDE](../trilhas/arduino-ide.md)
 - [Slide deck](../slides/semana-03.html)
-- [Quiz](../quiz/semana-03.md)
+- [Quiz](../quiz/semana-03.html)

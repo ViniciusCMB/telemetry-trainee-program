@@ -10,7 +10,7 @@ Migrar o projeto da Semana 3 do Arduino IDE para PlatformIO com estrutura modula
 - [ ] VS Code + PlatformIO extension
 - [ ] Ler a [Trilha PlatformIO](../trilhas/platformio.md) (seções 1 a 5)
 - [ ] Ver o [Slide deck](../slides/semana-04.html)
-- [ ] Fazer o [Quiz](../quiz/semana-04.md)
+- [ ] Fazer o [Quiz](../quiz/semana-04.html)
 
 ## Problema
 
@@ -99,4 +99,4 @@ Rode: `pio test -e native`
 - [Trilha PlatformIO](../trilhas/platformio.md)
 - [Exemplo PlatformIO](../examples/platformio-exemplo.md)
 - [Slide deck](../slides/semana-04.html)
-- [Quiz](../quiz/semana-04.md)
+- [Quiz](../quiz/semana-04.html)

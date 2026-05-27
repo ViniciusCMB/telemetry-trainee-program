@@ -12,7 +12,7 @@ Fazer o Arduino enviar dados pela serial e o Python receber, parsear e salvar em
 - [ ] Rever [serial no Arduino](../trilhas/arduino-ide.md#3-serial--comunicao-com-o-pc)
 - [ ] Rever [parsing no Python](../trilhas/python.md#12-parsing-de-pacotes-serial)
 - [ ] Ver o [Slide deck](../slides/semana-05.html)
-- [ ] Fazer o [Quiz](../quiz/semana-05.md)
+- [ ] Fazer o [Quiz](../quiz/semana-05.html)
 
 ## Problema
 
@@ -85,4 +85,4 @@ Crie um script que:
 - [Trilha Python](../trilhas/python.md)
 - [Trilha Arduino IDE](../trilhas/arduino-ide.md)
 - [Slide deck](../slides/semana-05.html)
-- [Quiz](../quiz/semana-05.md)
+- [Quiz](../quiz/semana-05.html)

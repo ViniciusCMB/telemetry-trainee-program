@@ -9,7 +9,7 @@ Criar um esquemático de ESP32-C3 + BMP280 no KiCad e rodar ERC.
 - [ ] KiCad 8+ instalado
 - [ ] Ler a [Trilha KiCad](../trilhas/kicad.md) (seções 1 a 5)
 - [ ] Ver o [Slide deck](../slides/semana-06.html)
-- [ ] Fazer o [Quiz](../quiz/semana-06.md)
+- [ ] Fazer o [Quiz](../quiz/semana-06.html)
 
 ## Problema
 
@@ -89,4 +89,4 @@ Exporte o esquemático como PDF (File → Plot → PDF).
 - [Trilha KiCad](../trilhas/kicad.md)
 - [Exemplo KiCad](../examples/kicad-exemplo.md)
 - [Slide deck](../slides/semana-06.html)
-- [Quiz](../quiz/semana-06.md)
+- [Quiz](../quiz/semana-06.html)

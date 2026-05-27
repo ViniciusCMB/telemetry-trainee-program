@@ -9,7 +9,7 @@ Integrar tudo que aprendeu em um pipeline end-to-end: Arduino gera dados → Pyt
 - [ ] Semanas 0 a 7 concluídas
 - [ ] ESP32-C3 + BMP280 montados na protoboard
 - [ ] Ver o [Slide deck](../slides/semana-08.html)
-- [ ] Fazer o [Quiz](../quiz/semana-08.md)
+- [ ] Fazer o [Quiz](../quiz/semana-08.html)
 
 ## Problema
 
@@ -89,4 +89,4 @@ capstone/
 - [Trilha Arduino IDE](../trilhas/arduino-ide.md)
 - [Trilha PlatformIO](../trilhas/platformio.md)
 - [Slide deck](../slides/semana-08.html)
-- [Quiz](../quiz/semana-08.md)
+- [Quiz](../quiz/semana-08.html)

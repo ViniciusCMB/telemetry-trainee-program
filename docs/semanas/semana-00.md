@@ -59,4 +59,4 @@ Abra um PR da sua branch para `main` seguindo o [template de PR](../../templates
 - [Trilha GitHub](../trilhas/github.md)
 - [Exemplo GitHub](../examples/github-exemplo.md)
 - [Slide deck](../slides/semana-00.html)
-- [Quiz](../quiz/semana-00.md)
+- [Quiz](../quiz/semana-00.html)

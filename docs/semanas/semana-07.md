@@ -9,7 +9,7 @@ Entender a arquitetura dos dois projetos principais do setor e identificar onde 
 - [ ] Semanas 0 a 6 concluídas
 - [ ] Acesso aos repositórios `flight-computer` e `satellite`
 - [ ] Ver o [Slide deck](../slides/semana-07.html)
-- [ ] Fazer o [Quiz](../quiz/semana-07.md)
+- [ ] Fazer o [Quiz](../quiz/semana-07.html)
 
 ## Problema
 
@@ -85,4 +85,4 @@ Indique onde cada semana do treinamento se aplica neste fluxo.
 - [Repositório Flight Computer](https://github.com/ViniciusCMB/flight-computer)
 - [Repositório Helike](https://github.com/ViniciusCMB/satellite)
 - [Slide deck](../slides/semana-07.html)
-- [Quiz](../quiz/semana-07.md)
+- [Quiz](../quiz/semana-07.html)

@@ -9,7 +9,7 @@ Ler um CSV de telemetria, calcular estatísticas e salvar um resumo.
 - [ ] Python 3.10+ instalado
 - [ ] Ler a [Trilha Python](../trilhas/python.md) (seções 1.1 e 2.1)
 - [ ] Ver o [Slide deck](../slides/semana-01.html)
-- [ ] Fazer o [Quiz](../quiz/semana-01.md)
+- [ ] Fazer o [Quiz](../quiz/semana-01.html)
 
 ## Problema
 
@@ -69,4 +69,4 @@ Duracao:        0.20 s
 - [Trilha Python](../trilhas/python.md)
 - [Exemplo Python](../examples/python-exemplo.md)
 - [Slide deck](../slides/semana-01.html)
-- [Quiz](../quiz/semana-01.md)
+- [Quiz](../quiz/semana-01.html)
