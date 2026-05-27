@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Integrar tudo que você aprendeu em um pipeline end-to-end de telemetria. Da geração dos dados no Arduino até a análise final em Python.
+Integrar tudo que aprendeu em um pipeline end-to-end: Arduino gera dados → Python recebe, processa e analisa.
 
 ## Preparação
 
@@ -11,100 +11,51 @@ Integrar tudo que você aprendeu em um pipeline end-to-end de telemetria. Da ger
 - [ ] Ver o [Slide deck](../slides/semana-08.html)
 - [ ] Fazer o [Quiz](../quiz/semana-08.md)
 
-## Tarefas
+## Problema
 
-### Pipeline completo
+Implemente um pipeline completo de telemetria com 4 fases.
 
-### Fase 1: Arduino — aquisição e transmissão
+### Fase 1 — Aquisição (Arduino)
 
-Configure o ESP32-C3 para:
+O ESP32-C3 deve:
+- Ler BMP280 a **20 Hz** via I2C
+- Piscar LED como heartbeat (1 Hz)
+- Calcular **checksum** do pacote e incluir no payload
+- Detectar **apogeu**: se altitude cair por N amostras consecutivas, acender um LED de aviso
+- Formato: `#timestamp;alt;ax;ay;az;temp;pres;chk#`
 
-1. Ler BMP280 a **20 Hz** via I2C
-2. Piscar o LED como heartbeat (1 Hz)
-3. Enviar pacotes formatados pela serial:
+### Fase 2 — Recepção (Python)
 
-```
-#timestamp_ms;altitude_m;ax;ay;az;temperatura_C;pressao_hPa#
-```
+Script que:
+- Conecta na serial do ESP
+- Parseia cada pacote em tempo real
+- Valida campos (range físico + checksum)
+- Salva válidos em CSV, inválidos em `erros.log`
+- Estatísticas a cada 50 pacotes
 
-4. Calcular e incluir um **checksum simples** no pacote
-5. Incluir **detecção de apogeu** (se altitude cair 3 amostras consecutivas, aciona um LED de aviso)
+### Fase 3 — Análise (Python)
 
-### Fase 2: Python — recepção, parsing e logging
+Após coletar **200+ pacotes**, gere:
+- Resumo estatístico (média, max, min por campo)
+- Gráfico de altitude × tempo (salvar PNG)
+- Apogeu marcado no gráfico
 
-Crie um script Python que:
+### Fase 4 — Documentação
 
-1. Conecta na serial do ESP32-C3
-2. Parseia cada pacote em tempo real
-3. Valida os campos (range físico, checksum)
-4. Salva em CSV com timestamp do sistema
-5. Mostra estatísticas ao vivo a cada 50 pacotes:
+README.md completo com:
+- Como executar (Arduino + Python)
+- Gráfico de resultado
+- Tabela de estatísticas
+- Lições aprendidas: o que foi mais difícil? O que faria diferente?
 
-```
-[10:30:15] 150 pacotes | 142 OK | 5 parser err | 3 val rej | 94.7%
-```
-
-### Fase 3: Python — análise
-
-Após coletar pelo menos 200 pacotes, gere:
-
-1. **Resumo estatístico** (média, max, min de cada campo)
-2. **Gráfico de altitude × tempo** (salvar como PNG)
-3. **Detecção de apogeu** marcada no gráfico
-
-### Fase 4: Documentação
-
-Crie um README.md completo:
-
-```markdown
-# Pipeline de Telemetria — Capstone
-
-## Como executar
-
-### Arduino
-1. Conecte o ESP32-C3 via USB
-2. Faça upload do firmware
-3. Verifique LEDs e serial
-
-### Python
-```bash
-python3 receptor.py
-```
-
-## Resultados
-
-Gráfico de altitude: ![perfil](perfil_voo.png)
-
-## Estatísticas
-| Métrica | Valor |
-|---|---|
-| Amostras | 200 |
-| Taxa | 20 Hz |
-| Pacotes OK | 95% |
-
-## Lições aprendidas
-- O que foi mais difícil?
-- O que você faria diferente?
-```
-
-## Critérios de aceite
-
-- [ ] Arduino envia pacotes a 20 Hz com checksum
-- [ ] Python recebe e loga sem perder pacotes
-- [ ] Gráfico de altitude gerado
-- [ ] Apogeu detectado e marcado
-- [ ] README completo com instruções e resultados
-- [ ] Repositório organizado (src/, lib/, test/ se PlatformIO)
-- [ ] Commits com tipo semântico (`feat:`, `build:`, `docs:`, `fix:`, `test:`, ...)
-
-## Entregáveis
+## Estrutura de entrega
 
 ```
 capstone/
-├── firmware/               # Código do Arduino/PlatformIO
+├── firmware/           # Código do Arduino/PlatformIO
 │   ├── src/main.cpp
 │   └── platformio.ini
-├── script/                 # Código Python
+├── script/             # Código Python
 │   ├── receptor.py
 │   ├── analise.py
 │   └── requirements.txt
@@ -115,16 +66,22 @@ capstone/
 └── README.md
 ```
 
-## Avaliação
-
-O capstone será avaliado em:
+## Critérios de avaliação
 
 | Critério | Peso |
 |---|---|
-| Pipeline funcional | 40% |
-| Qualidade do código | 25% |
-| Documentação | 20% |
-| Organização do repo | 15% |
+| Pipeline funcional (dado entra, dado sai) | 40% |
+| Qualidade do código (organização, legibilidade) | 25% |
+| Documentação (README, gráfico, lições) | 20% |
+| Organização do repositório | 15% |
+
+- Commits com tipos semânticos (`feat:`, `build:`, `docs:`, `fix:`, `test:`, ...)
+
+## Perguntas para reflexão
+
+- O que você faria diferente se fosse para um voo real?
+- Como tornar o sistema mais robusto a falhas?
+- O que falta para esse pipeline virar o firmware de verdade do Flight Computer?
 
 ## Referências
 
@@ -133,4 +90,3 @@ O capstone será avaliado em:
 - [Trilha PlatformIO](../trilhas/platformio.md)
 - [Slide deck](../slides/semana-08.html)
 - [Quiz](../quiz/semana-08.md)
-- [Issue semanal (exemplo)](../issues-semanais/issue-semana-08.md)

@@ -2,166 +2,97 @@
 
 ## Objetivo
 
-Migrar o projeto da Semana 3 do Arduino IDE para uma estrutura profissional com PlatformIO, separando o código em módulos e configurando ambientes de build.
+Migrar o projeto da Semana 3 do Arduino IDE para PlatformIO com estrutura modular e testes.
 
 ## Preparação
 
 - [ ] Semana 3 concluída (código funcional no Arduino IDE)
-- [ ] VS Code + PlatformIO extension instalados
+- [ ] VS Code + PlatformIO extension
 - [ ] Ler a [Trilha PlatformIO](../trilhas/platformio.md) (seções 1 a 5)
 - [ ] Ver o [Slide deck](../slides/semana-04.html)
 - [ ] Fazer o [Quiz](../quiz/semana-04.md)
 
-## Tarefas
+## Problema
 
-### 1. Criar projeto PlatformIO
+### Tarefa 1 — Criar projeto
 
-1. VS Code → Command Palette → `PlatformIO: New Project`
-2. Name: `telemetria-pio`
-3. Board: `Espressif ESP32-C3 Dev Module`
-4. Framework: `Arduino`
-5. Location: dentro da sua branch no repositório
-
-### 2. Configurar platformio.ini
-
-```ini
-[env:esp32c3]
-platform = espressif32
-board = esp32-c3-devkitm-1
-framework = arduino
-monitor_speed = 115200
-build_flags =
-    -DI2C_SDA=4
-    -DI2C_SCL=5
-    -DSEALEVEL=1013.25
-
-lib_deps =
-    adafruit/Adafruit BMP280 Library
-
-[env:native]
-platform = native
-framework = unity
-build_flags = -I lib
-```
-
-### 3. Migrar o código
-
-Separe o sketch da Semana 3 na estrutura PlatformIO:
+Crie um projeto PlatformIO para ESP32-C3 com a estrutura:
 
 ```
-telemetria-pio/
+projeto/
 ├── platformio.ini
 ├── src/
-│   └── main.cpp          # código principal (antes era o .ino)
+│   └── main.cpp
 ├── lib/
 │   └── calc/
-│       └── SensorData.h  # struct com dados do sensor
+│       └── SensorData.h
 └── test/
     └── test_sensor/
         └── test_sensor.cpp
 ```
 
-**src/main.cpp** — adicione `#include <Arduino.h>` no topo:
+### Tarefa 2 — Configurar platformio.ini
 
-```cpp
-#include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_BMP280.h>
+Crie dois ambientes:
+- `esp32c3`: para o firmware (board `esp32-c3-devkitm-1`, framework arduino)
+- `native`: para testes no PC (framework unity)
 
-#define I2C_SDA 4
-#define I2C_SCL 5
-#define SEALEVEL 1013.25
+Adicione em `build_flags`: os pinos I2C como defines (`I2C_SDA=4`, `I2C_SCL=5`).
+Adicione em `lib_deps`: `Adafruit BMP280 Library`.
 
-Adafruit_BMP280 bmp;
-unsigned long last_sample = 0;
+### Tarefa 3 — Migrar o código
 
-void setup() { /* ... */ }
-void loop() { /* ... */ }
-```
+Transfira o código da Semana 3 para `src/main.cpp`:
+- Adicione `#include <Arduino.h>` (no PlatformIO, .ino não existe mais)
+- Use os defines do `build_flags` em vez de números hardcoded
+- O código deve compilar com `pio run -e esp32c3`
 
-### 4. Criar módulo em lib/calc/
+### Tarefa 4 — Módulo SensorData
 
-`lib/calc/SensorData.h`:
+Crie `lib/calc/SensorData.h` com:
+- Uma `struct SensorData` com os campos do pacote
+- Um método `bool isValid()` que valida os ranges físicos (reaproveite a lógica da Semana 2)
+- Header-only (sem `.cpp`), sem dependência de bibliotecas Arduino
 
-```cpp
-#pragma once
+### Tarefa 5 — Teste nativo
 
-struct SensorData {
-    unsigned long timestamp_ms;
-    float altitude_m;
-    float temperatura_C;
-    float pressao_hPa;
+Crie `test/test_sensor/test_sensor.cpp` que testa:
+- Um `SensorData` válido retorna `true`
+- Um com altitude > 10000 retorna `false`
+- Um com temperatura < -40 retorna `false`
 
-    bool isValid() const {
-        return altitude_m >= -100 && altitude_m <= 10000
-            && temperatura_C >= -40 && temperatura_C <= 85
-            && pressao_hPa >= 300 && pressao_hPa <= 1100;
-    }
-};
-```
-
-### 5. Compilar e testar
-
-```bash
-# Build para ESP32-C3
-pio run -e esp32c3
-
-# Upload
-pio run -e esp32c3 -t upload --upload-port /dev/ttyACM0
-
-# Verificar saída no monitor
-pio device monitor -b 115200
-```
-
-### 6. Extra: teste nativo
-
-Crie um teste em `test/test_sensor/test_sensor.cpp`:
-
-```cpp
-#include <unity.h>
-#include "SensorData.h"
-
-void test_sensor_valido() {
-    SensorData d { 0, 100.0f, 25.0f, 1013.25f };
-    TEST_ASSERT_TRUE(d.isValid());
-}
-
-void test_sensor_altitude_invalida() {
-    SensorData d { 0, 99999.0f, 25.0f, 1013.25f };
-    TEST_ASSERT_FALSE(d.isValid());
-}
-
-void setup() {
-    UNITY_BEGIN();
-    RUN_TEST(test_sensor_valido);
-    RUN_TEST(test_sensor_altitude_invalida);
-    UNITY_END();
-}
-
-void loop() {}
-```
+Use Unity framework (`TEST_ASSERT_TRUE`, `TEST_ASSERT_FALSE`).
 
 Rode: `pio test -e native`
 
+## Dicas
+
+- Em `lib/calc/SensorData.h`, use apenas C++ padrão — nada de `Arduino.h`, `Wire.h`, etc.
+- `build_flags` no platformio.ini: por exemplo `-DI2C_SDA=4` — no código use `I2C_SDA` diretamente
+- `lib_deps` aceita formato `autor/nome @ versão`
+- Comando pra compilar sketch de teste: `pio run -e esp32c3 --project-option="src_dir=caminho"`
+
+## Extra (opcional)
+
+- Adicione um módulo `VerticalVelocity.h` que calcula Vz por diferença finita
+- Adicione um módulo `ApogeeDetection.h` que detecta apogeu por threshold de Vz
+- Escreva testes para ambos
+
 ## Critérios de aceite
 
-- [ ] Build sem erros (`pio run -e esp32c3`)
+- [ ] `pio run -e esp32c3` compila sem erros
 - [ ] Upload funciona e serial exibe dados
+- [ ] `pio test -e native` passa
 - [ ] Código organizado em `src/`, `lib/`, `test/`
-- [ ] `platformio.ini` com dois ambientes (esp32c3 + native)
-- [ ] Testes nativos passam (`pio test -e native`)
-- [ ] Commit com tipo semântico (ex: `build:`, `feat:`, `test:`)
+- [ ] `SensorData.h` sem dependência Arduino
 - [ ] README com instruções de build
+- [ ] Commit com tipo semântico
 
-## Armadilhas comuns
+## Perguntas para reflexão
 
-- **Falta `#include <Arduino.h>`**: no PlatformIO, o `.ino` não existe mais — você precisa incluir manualmente
-- **Pino errado**: as `build_flags` definem os pinos — use `I2C_SDA` em vez de `4` hardcoded
-- **Biblioteca não encontrada**: confira se o nome em `lib_deps` está correto
-
-## Conexão com projetos reais
-
-O Helike usa PlatformIO com esta mesma estrutura: ambiente `helike_esp32c3` para firmware e `native` para testes. Os módulos em `lib/calc/` do Helike (VerticalVelocity, ApogeeDetection, DataValidation) seguem este mesmo padrão.
+- Por que separar a lógica em `lib/` e mantê-la sem dependência Arduino?
+- Qual a vantagem de ter um ambiente `native` além do `esp32c3`?
+- O que `build_flags` resolve que #define no código não resolve?
 
 ## Referências
 
@@ -169,4 +100,3 @@ O Helike usa PlatformIO com esta mesma estrutura: ambiente `helike_esp32c3` para
 - [Exemplo PlatformIO](../examples/platformio-exemplo.md)
 - [Slide deck](../slides/semana-04.html)
 - [Quiz](../quiz/semana-04.md)
-- [Issue semanal (exemplo)](../issues-semanais/issue-semana-04.md)

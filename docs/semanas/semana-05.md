@@ -2,103 +2,83 @@
 
 ## Objetivo
 
-Integrar o Arduino (que envia dados) com o Python (que recebe, parseia e salva). É o primeiro pipeline completo de telemetria.
+Fazer o Arduino enviar dados pela serial e o Python receber, parsear e salvar em tempo real.
 
 ## Preparação
 
 - [ ] Semanas 3 e 4 concluídas (Arduino enviando pacotes)
 - [ ] Semanas 1 e 2 concluídas (parser Python funcional)
 - [ ] ESP32-C3 conectado via USB
-- [ ] Rever seções de [serial no Arduino](../trilhas/arduino-ide.md#3-serial--comunicao-com-o-pc) e [parsing no Python](../trilhas/python.md#12-parsing-de-pacotes-serial)
+- [ ] Rever [serial no Arduino](../trilhas/arduino-ide.md#3-serial--comunicao-com-o-pc)
+- [ ] Rever [parsing no Python](../trilhas/python.md#12-parsing-de-pacotes-serial)
 - [ ] Ver o [Slide deck](../slides/semana-05.html)
 - [ ] Fazer o [Quiz](../quiz/semana-05.md)
 
-## Tarefas
+## Problema
 
-### 1. Lado Arduino — envio contínuo
+### Lado Arduino
 
-Use o código da Semana 3/4 para enviar pacotes a 20 Hz no formato:
+O ESP32-C3 deve enviar pacotes a **20 Hz** no formato:
 
 ```
 #timestamp_ms;altitude_m;temperatura_C;pressao_hPa;ax;ay;az#
 ```
 
-Mantenha o ESP32-C3 conectado e enviando dados.
+- Use o código das Semanas 3/4
+- Mantenha o LED piscando a 1 Hz
+- O ESP deve ficar ligado e enviando por tempo indeterminado
 
-### 2. Lado Python — leitor serial
+### Lado Python
 
-Crie `leitor_serial.py` que lê da porta serial em tempo real:
+Crie um script que:
 
-```python
-import serial
-import csv
-from datetime import datetime
+1. **Conecta** na porta serial onde o ESP32 está
+2. **Lê** linhas continuamente
+3. **Parseia** cada linha com o parser da Semana 2
+4. **Valida** com o validador da Semana 2
+5. **Salva** pacotes válidos em CSV
+6. **Registra** pacotes inválidos em `erros.log`
+7. **Exibe** estatísticas a cada 50 pacotes:
 
-PORTA = "/dev/ttyACM0"  # Linux
-BAUD = 115200
-
-def main():
-    with serial.Serial(PORTA, BAUD, timeout=1) as ser:
-        with open("log_telemetria.csv", "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["timestamp_ms", "altitude_m",
-                             "temperatura_C", "pressao_hPa"])
-
-            while True:
-                linha = ser.readline().decode("utf-8", errors="ignore").strip()
-                if not linha:
-                    continue
-                # chamar o parser da Semana 2 aqui
-                # se válido, escrever no CSV
+```
+[14:30:15] 150 pacotes | 142 OK | 5 parser err | 3 valid rej | 94.7% OK
 ```
 
-### 3. Integrar parser da Semana 2
+**Requisitos de robustez:**
+- Trate desconexão da serial (`serial.SerialException`)
+- Trate linha corrompida sem quebrar o loop
+- Use `serial.timeout` para não travar se o ESP parar de enviar
+- O script deve rodar 5+ minutos sem perder pacotes
 
-- Reaproveite a função `parse_packet()` da Semana 2
-- Reaproveite a função `validate_packet()`
-- Pacotes inválidos: registre em um log separado (`erros.log`) com timestamp e linha bruta
+## Dicas
 
-### 4. Logging resiliente
+- Descubra a porta: `ls /dev/tty*` no Linux, ou `COM3` no Windows
+- `serial.Serial(porta, 115200, timeout=1)` — timeout de 1s evita travamento
+- `ser.readline()` retorna bytes — use `.decode("utf-8", errors="ignore")` e `.strip()`
+- Reaproveite as funções `parse_packet()` e `validate_packet()` da Semana 2
+- Para o CSV: abra uma vez no início e escreva cada pacote válido com `csv.writer`
 
-O programa deve rodar por tempo indeterminado:
+## Extra (opcional)
 
-- Trate desconexão da serial (`SerialException`)
-- Trate linha corrompida (não quebrar o loop)
-- Mostre estatísticas a cada 100 pacotes:
-  ```
-  [12:34:56] 500 pacotes recebidos | 480 válidos | 20 erros | 96% OK
-  ```
-
-### 5. Extra: plotagem em tempo real
-
-Use matplotlib em modo interativo para mostrar o gráfico de altitude em tempo real:
-
-```python
-plt.ion()
-fig, ax = plt.subplots()
-# a cada pacote válido, atualiza o gráfico
-```
+- Gráfico em tempo real com matplotlib (`plt.ion()`)
+- Envie um comando pelo serial para o ESP (ex: "R" reseta, "P" pausa)
+- Calcule e exiba a taxa de amostragem real (pacotes/segundo)
 
 ## Critérios de aceite
 
-- [ ] Arduino envia pacotes a 20 Hz constante
-- [ ] Python lê, parseia e valida sem perder pacotes
+- [ ] Arduino envia a 20 Hz constante
+- [ ] Python lê, parseia e valida sem perder dados
 - [ ] CSV de saída com dados limpos
 - [ ] Log de erros separado
-- [ ] Roda por 5+ minutos sem travar
-- [ ] Commit com tipo semântico (ex: `feat:`, `docs:`, `build:`, `fix:`)
+- [ ] Roda 5+ min sem travamento
+- [ ] Commit com tipo semântico
 - [ ] README com instruções de execução
 
-## Armadilhas comuns
+## Perguntas para reflexão
 
-- **Porta errada**: no Linux é `/dev/ttyACM0` ou `/dev/ttyUSB0`; no Windows `COM3`
-- **Buffer overflow**: se o Python não ler rápido, o buffer serial enche — aumente o timeout ou diminua a taxa
-- **Encoding**: use `errors="ignore"` no decode para não quebrar com caracteres estranhos
-- **Parser da Semana 2**: teste localmente com uma linha antes de integrar com a serial
-
-## Conexão com projetos reais
-
-Este pipeline é a versão simplificada do que acontece no Helike e no Flight Computer: sensores → firmware → serial/LoRa →地面 station → log CSV. A diferença é que nos projetos reais a transmissão é sem fio (LoRa) e o processamento é mais robusto.
+- O que acontece se o Python ler mais devagar que o Arduino envia?
+- Por que separar parser e validador em funções diferentes?
+- Como garantir que o CSV não corrompa se o script for interrompido no meio?
 
 ## Referências
 
@@ -106,4 +86,3 @@ Este pipeline é a versão simplificada do que acontece no Helike e no Flight Co
 - [Trilha Arduino IDE](../trilhas/arduino-ide.md)
 - [Slide deck](../slides/semana-05.html)
 - [Quiz](../quiz/semana-05.md)
-- [Issue semanal (exemplo)](../issues-semanais/issue-semana-05.md)

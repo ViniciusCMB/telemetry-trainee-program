@@ -2,154 +2,96 @@
 
 ## Objetivo
 
-Programar um ESP32-C3 para ler sensores e enviar dados formatados pela serial. É aqui que você vai ver o hardware funcionando de verdade.
+Programar um ESP32-C3 para ler sensor BMP280 e enviar dados formatados pela serial.
 
 ## Preparação
 
-- [ ] Arduino IDE 2.x instalado
-- [ ] Placa ESP32-C3 Super Mini + cabo USB-C
-- [ ] Sensor BMP280 (ou BME280) + protoboard + jumpers
+- [ ] Arduino IDE 2.x instalado com suporte a ESP32
+- [ ] ESP32-C3 Super Mini + cabo USB
+- [ ] BMP280 + protoboard + jumpers
 - [ ] Ler a [Trilha Arduino IDE](../trilhas/arduino-ide.md) (seções 1, 3, 4)
 - [ ] Ver o [Slide deck](../slides/semana-03.html)
 - [ ] Fazer o [Quiz](../quiz/semana-03.md)
 
-## Tarefas
+## Problema
 
-### 1. Blink com LED
+### Tarefa 1 — Blink
 
-Conecte um LED ao GPIO 1 do ESP32-C3 (ou use o LED onboard se disponível).
+Faça um LED (GPIO 1) piscar a 1 Hz. Use `pinMode()` e `digitalWrite()`.
 
-```cpp
-#define LED_PIN 1
+**Confira**: o LED acende e apaga numa frequência visível.
 
-void setup() {
-    pinMode(LED_PIN, OUTPUT);
-}
+### Tarefa 2 — Scan I2C
 
-void loop() {
-    digitalWrite(LED_PIN, HIGH);
-    delay(500);
-    digitalWrite(LED_PIN, LOW);
-    delay(500);
-}
+Conecte o BMP280 ao ESP32-C3 e faça um scan I2C para descobrir o endereço.
+
+**Conexões:**
+```
+BMP280 → ESP32-C3
+VCC    → 3.3V
+GND    → GND
+SDA    → GPIO4
+SCL    → GPIO5
 ```
 
-**Verifique**: o LED pisca a 1 Hz.
+Use `Wire.begin(4, 5)` e `Wire.endTransmission()` para varrer endereços de 1 a 127.
 
-### 2. Conexão do BMP280
+**Saída esperada:** `Dispositivo em 0x76` (ou `0x77`)
 
-Conecte o BMP280 ao ESP32-C3:
+### Tarefa 3 — Leitura do sensor
 
-```
-BMP280   →  ESP32-C3
-VCC      →  3.3V
-GND      →  GND
-SDA      →  GPIO4
-SCL      →  GPIO5
-```
+Com a biblioteca Adafruit BMP280, leia altitude, temperatura e pressão. Envie os valores pela serial a cada 1 segundo.
 
-Rode o scan I2C para confirmar a comunicação:
+### Tarefa 4 — Pacotes formatados (20 Hz)
 
-```cpp
-#include <Wire.h>
-
-void setup() {
-    Serial.begin(115200);
-    Wire.begin(4, 5);
-    for (byte addr = 1; addr < 127; addr++) {
-        Wire.beginTransmission(addr);
-        if (Wire.endTransmission() == 0) {
-            Serial.print("Dispositivo em 0x");
-            Serial.println(addr, HEX);
-        }
-    }
-}
-
-void loop() {}
-```
-
-**Saída esperada**: `Dispositivo em 0x76` (ou `0x77` dependendo do módulo).
-
-### 3. Leitura do sensor
-
-Com a biblioteca Adafruit BMP280, leia e exiba os valores no Serial Monitor:
-
-```cpp
-#include <Wire.h>
-#include <Adafruit_BMP280.h>
-
-Adafruit_BMP280 bmp;
-
-void setup() {
-    Serial.begin(115200);
-    Wire.begin(4, 5);
-    if (!bmp.begin(0x76)) {
-        Serial.println("ERRO: sensor nao encontrado");
-        while (1);
-    }
-}
-
-void loop() {
-    Serial.print("Alt: ");
-    Serial.print(bmp.readAltitude(1013.25));
-    Serial.print(" m  Temp: ");
-    Serial.print(bmp.readTemperature());
-    Serial.println(" C");
-    delay(1000);
-}
-```
-
-### 4. Envio de pacotes formatados (20 Hz)
-
-Adapte o código para enviar pacotes no formato `#campos#` a 20 Hz, sem bloquear com `delay()`:
-
-```cpp
-unsigned long last_sample = 0;
-const unsigned long INTERVAL = 50; // 20 Hz
-
-void loop() {
-    unsigned long now = millis();
-    if (now - last_sample >= INTERVAL) {
-        last_sample = now;
-        // formata e envia pacote
-    }
-}
-```
-
-**Formato do pacote:**
+Adapte o código para enviar pacotes a **20 Hz** no formato:
 
 ```
 #timestamp_ms;altitude_m;temperatura_C;pressao_hPa#
 ```
 
-### 5. Extra: debounce de botão
+**Regras:**
+- Use `millis()` para controle de tempo — `delay()` não é aceito
+- A taxa deve ser consistente (20 Hz ± 1 Hz)
+- O LED deve piscar independente (1 Hz) — não pode travar junto com o sensor
 
-Adicione um botão no GPIO 2 que alterna o LED quando pressionado, com debounce de 50 ms.
+## Dicas
+
+- `Wire.begin(sda, scl)` no `setup()` define os pinos I2C no ESP32-C3
+- A biblioteca BMP280 precisa de `#include <Adafruit_BMP280.h>` e `#include <Wire.h>`
+- Para leitura de altitude: `bmp.readAltitude(1013.25)` — o parâmetro é a pressão ao nível do mar
+- `sprintf()` ou `snprintf()` ajuda a formatar o pacote
+- Estrutura típica sem delay:
+  ```cpp
+  if (millis() - ultimo >= INTERVALO) {
+      ultimo = millis();
+      // leitura e envio
+  }
+  ```
+
+## Extra (opcional)
+
+- Adicione validação: só envie pacote se o sensor respondeu corretamente
+- Adicione um botão no GPIO 2 com debounce que alterna o LED
+- Calcule a norma da aceleração (`sqrt(ax²+ay²+az²)`) — mesmo que os dados sejam simulados
 
 ## Critérios de aceite
 
 - [ ] Código compila e faz upload sem erros
-- [ ] BMP280 responde no scan I2C
-- [ ] Serial envia pacotes formatados a 20 Hz constante
-- [ ] Pacotes no formato `#campos#`
-- [ ] Commit com tipo semântico (ex: `feat:`, `docs:`, `build:`)
+- [ ] Serial envia pacotes a 20 Hz constante
+- [ ] LED piscando a 1 Hz independente
+- [ ] Formato do pacote: `#timestamp;alt;temp;pres#`
 - [ ] README com esquema de ligação dos pinos
+- [ ] Commit com tipo semântico
 
-## Armadilhas comuns
+## Perguntas para reflexão
 
-- **Baud rate errado**: configure o Serial Monitor para 115200
-- **Fio solto**: confira todas as conexões do BMP280
-- **Endereço I2C errado**: pode ser `0x76` ou `0x77` — o scan mostra o correto
-- **delay() trava**: se usar `delay()`, a taxa de amostragem fica imprecisa — use `millis()`
-
-## Conexão com projetos reais
-
-Este é o mesmo sensor BMP280 usado no Flight Computer. O formato de pacote que você implementou é compatível com o parser Python da Semana 2. O barramento I2C com SDA=GPIO4 e SCL=GPIO5 é idêntico ao usado no FC.
+- Por que `delay()` atrapalha a taxa de amostragem?
+- O que acontece com o barramento I2C se o SDA ou SCL não tiver pull-up?
+- Qual a diferença entre 9600 e 115200 baud? Quando usar cada um?
 
 ## Referências
 
 - [Trilha Arduino IDE](../trilhas/arduino-ide.md)
-- [Exemplo Arduino IDE](../examples/arduino-ide-exemplo.md)
 - [Slide deck](../slides/semana-03.html)
 - [Quiz](../quiz/semana-03.md)
-- [Issue semanal (exemplo)](../issues-semanais/issue-semana-03.md)

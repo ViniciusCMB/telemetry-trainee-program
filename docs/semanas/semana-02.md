@@ -2,7 +2,7 @@
 
 ## Objetivo
 
-Implementar um parser de pacotes de telemetria e um validador de dados. Na vida real, os dados não chegam limpos em CSV — chegam como strings cruas pela serial.
+Implementar um parser de pacotes de telemetria e um validador de dados.
 
 ## Preparação
 
@@ -11,129 +11,91 @@ Implementar um parser de pacotes de telemetria e um validador de dados. Na vida 
 - [ ] Ver o [Slide deck](../slides/semana-02.html)
 - [ ] Fazer o [Quiz](../quiz/semana-02.md)
 
-## Tarefas
+## Problema
 
-### 1. Parser de pacote
-
-Crie uma função que recebe uma string bruta da serial e retorna um dicionário estruturado.
-
-**Formato do pacote:**
+Dados de telemetria chegam como strings cruas pela serial no formato:
 
 ```
 #timestamp_ms;altitude_m;temperatura_C;pressao_hPa;ax;ay;az#
 ```
 
-**Exemplo:**
-
+Exemplo real:
 ```
 #0;0.0;25.0;1013.25;0.01;0.02;9.81#
 #50;0.5;24.9;1012.80;0.02;0.01;9.80#
 ```
 
-**Implementação:**
+Seu script deve:
 
-```python
-def parse_packet(line: str) -> dict | None:
-    if not line.startswith("#") or not line.endswith("#"):
-        return None
-    parts = line.strip("#").split(";")
-    if len(parts) != 7:
-        return None
-    try:
-        return {
-            "timestamp_ms": int(parts[0]),
-            "altitude_m": float(parts[1]),
-            "temperatura_C": float(parts[2]),
-            "pressao_hPa": float(parts[3]),
-            "ax": float(parts[4]),
-            "ay": float(parts[5]),
-            "az": float(parts[6]),
-        }
-    except ValueError:
-        return None
-```
+### Tarefa 1 — Parser
 
-### 2. Validador de dados
+Função que recebe uma string bruta e retorna um dicionário com os campos tipados.
 
-Crie uma função que valida os campos do pacote:
+**Regras do parser:**
+- Rejeitar linhas que não começam/terminam com `#`
+- Rejeitar linhas com número de campos diferente do esperado
+- Rejeitar campos não numéricos (ex: letra onde deveria vir número)
+- Retornar `None` para linhas inválidas (não levantar exceção)
 
-```python
-def validate_packet(data: dict) -> bool:
-    # Verifica range físico de cada campo
-    if data["altitude_m"] < -100 or data["altitude_m"] > 10000:
-        return False
-    if data["temperatura_C"] < -40 or data["temperatura_C"] > 85:
-        return False
-    if data["pressao_hPa"] < 300 or data["pressao_hPa"] > 1100:
-        return False
-    # Verifica gravidade (deve ser ~9.81 m/s² em repouso)
-    g = (data["ax"]**2 + data["ay"]**2 + data["az"]**2) ** 0.5
-    if g < 8.0 or g > 11.0:
-        return False
-    return True
-```
+### Tarefa 2 — Validador
 
-### 3. Processador de arquivo
+Função que recebe o dicionário do parser e valida os ranges físicos:
 
-Crie um script que:
+- Altitude: -100 a 10000 m
+- Temperatura: -40 a 85 °C
+- Pressão: 300 a 1100 hPa
+- Norma da aceleração: 8 a 11 m/s² (deve ser ~9.81 em repouso)
 
-1. Lê um arquivo linha por linha
-2. Para cada linha, tenta fazer parse
-3. Se o parse funcionar, valida os dados
-4. Conta pacotes: válidos, inválidos (parser) e rejeitados (validação)
-5. Exibe estatísticas no final
+Retorna `True`/`False`.
 
-**Saída esperada:**
+### Tarefa 3 — Processador
+
+Leia um arquivo linha por linha, aplique parser + validador, e exiba:
 
 ```
-Processando pacotes...
+Processando...
 Linha 1: OK
 Linha 2: OK
 Linha 3: FALHA (parser) — formato invalido
 Linha 4: OK
 Linha 5: REJEITADO (validacao) — altitude fora do range
-...
 
 Resumo:
-  Total de linhas: 100
-  Pacotes validos: 78
-  Erros de parser: 12
-  Rejeitados:      10
-  Taxa de sucesso: 78%
+  Total:      100
+  Validos:     78
+  Parse err:   12
+  Valid rej:   10
+  Taxa OK:    78%
 ```
 
-### 4. Extra: checksum simples
+## Dicas
 
-Adicione um byte de checksum ao final do pacote:
+- `str.strip("#")` remove `#` do início e fim
+- `str.split(";")` separa os campos
+- `try/except ValueError` em volta de cada `float()` ou `int()`
+- Norma da aceleração: `sqrt(ax² + ay² + az²)`
 
-```
-#timestamp;alt;temp;pres;ax;ay;az;CHK#
-```
+## Extra (opcional)
 
-O checksum é o XOR de todos os bytes entre `#...#`. Rejeite pacotes com checksum inválido.
+- Adicione checksum: o último campo é o XOR de todos os bytes entre `#...#`
+- Exporte os pacotes válidos para um CSV
+- Aceite o arquivo de entrada como argumento (`sys.argv`)
 
 ## Critérios de aceite
 
-- [ ] Parser rejeita formatos inválidos (sem `#`, campos a menos, NaN)
-- [ ] Validador rejeita valores fora do range físico
-- [ ] Estatísticas de parse × validação no final
-- [ ] Commit com tipo semântico (ex: `feat:`, `test:`, `refactor:`)
-- [ ] README com exemplos de uso
+- [ ] Parser rejeita formatos inválidos sem quebrar
+- [ ] Validador rejeita valores fora do range
+- [ ] Estatísticas no final
+- [ ] Commit com tipo semântico
 
-## Armadilhas comuns
+## Perguntas para reflexão
 
-- **String vazia**: `parse_packet("")` deve retornar `None`, não quebrar
-- **Timestamp negativo**: pode acontecer? Decida se aceita ou rejeita
-- **Parser vs validação**: são duas etapas separadas — não misture
-
-## Conexão com projetos reais
-
-No Helike, os testes de hardware enviam pacotes pela serial com 15 campos. O parser que você está construindo é a versão simplificada do que está no `DataValidation.h` da `lib/calc/`.
+- Por que separar parser e validador em funções diferentes?
+- O que acontece se um campo de altitude vier como `"NaN"`?
+- Como você testaria manualmente o parser com 20 linhas diferentes?
 
 ## Referências
 
 - [Trilha Python](../trilhas/python.md)
-- [Exemplo Python](../examples/python-exemplo.md)
 - [Slide deck](../slides/semana-02.html)
 - [Quiz](../quiz/semana-02.md)
-- [Issue semanal (exemplo)](../issues-semanais/issue-semana-02.md)
