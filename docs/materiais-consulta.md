@@ -17,6 +17,8 @@ Links curados organizados por tecnologia.
 
 ## Arduino / ESP32
 
+- [Random Nerd Tutorials](https://randomnerdtutorials.com/) — tutoriais práticos de ESP32, sensores, LoRa, I2C
+- [Instructables — Circuits](https://www.instructables.com/circuits/) — projetos DIY com Arduino, passo a passo ilustrado
 - [Arduino Reference](https://www.arduino.cc/reference/pt/) — documentação oficial das funções
 - [ESP32-C3 Datasheet](https://www.espressif.com/sites/default/files/documentation/esp32-c3_datasheet_en.pdf) — folha de dados do microcontrolador
 - [I2C — SparkFun Guide](https://learn.sparkfun.com/tutorials/i2c) — como funciona o barramento I2C
