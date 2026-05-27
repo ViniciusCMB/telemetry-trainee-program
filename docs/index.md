@@ -29,9 +29,7 @@ Bem-vindo ao treinamento do time de telemetria e controle da **Serra Rocketry**.
 - [Boas Práticas de PR](boas-praticas-pr.md)
 - [Padrão de Branches e PRs](padrao-branches-prs.md)
 - [Guia do Instrutor](guia-instrutor.md)
-- [Auditoria das Trilhas](auditoria-trilhas.md)
-- [Checklist GitHub Pages](checklist-github-pages.md)
-- [Melhorias Futuras](melhorias-futuras.md)
+
 
 ## Conclusão
 

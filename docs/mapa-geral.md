@@ -23,4 +23,4 @@
 
 ## Publicacao
 
-- [Checklist GitHub Pages](checklist-github-pages.md)
+- [Troubleshooting](troubleshooting.md)

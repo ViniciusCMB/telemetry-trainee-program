@@ -18,10 +18,7 @@ treinamento-telemetria/
 │ ├── padrao-branches-prs.md
 │ ├── guia-do-aluno.md
 │ ├── faq.md
-│ ├── checklist-github-pages.md
 │ ├── visao-geral.md
-│ ├── auditoria-trilhas.md
-│ ├── melhorias-futuras.md
 │ ├── checklist-release-candidate.md
 │ ├── issues-semanais/
 │ │ ├── README.md
