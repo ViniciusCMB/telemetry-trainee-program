@@ -67,7 +67,7 @@ O Arduino IDE é ótimo para aprender, mas projetos reais precisam de:
 | Organização modular | Tudo num `.ino` | `src/`, `lib/`, `include/` |
 | CI/CD | Manual | Integração com GitHub Actions |
 
-**No Helike** — O projeto usa PlatformIO com dois ambientes: `helike_esp32c3` (firmware do ESP32-C3) e `native` (testes unitários no PC).
+No Helike - O projeto usa PlatformIO com dois ambientes: `helike_esp32c3` (firmware do ESP32-C3) e `native` (testes unitários no PC).
 
 ---
 
@@ -96,11 +96,11 @@ projeto/
             └── bmp280.ino
 ```
 
-**Exemplo real** — O Helike segue exatamente esta estrutura: `lib/calc/` com módulos header-only testáveis no PC, `test/` com testes Unity, e `test_hardware/` com sketches de validação.
+Exemplo real - O Helike segue exatamente esta estrutura: `lib/calc/` com módulos header-only testáveis no PC, `test/` com testes Unity, e `test_hardware/` com sketches de validação.
 
 ---
 
-## 3. Configuração — platformio.ini
+## 3. Configuração - platformio.ini
 
 ### 3.1 Projeto básico
 
@@ -138,7 +138,7 @@ framework = unity
 build_flags = -I lib
 ```
 
-O ambiente `native` compila e roda **no seu PC**, perfeito para testar lógicas sem precisar de hardware.
+O ambiente `native` compila e roda no seu PC, perfeito para testar lógicas sem precisar de hardware.
 
 ---
 
@@ -159,7 +159,7 @@ O PlatformIO baixa e gerencia as versões automaticamente no `pio run`.
 
 ---
 
-## 5. Organização modular — lib/
+## 5. Organização modular - lib/
 
 Módulos em `lib/` devem ser independentes de hardware para serem testáveis no PC.
 
@@ -243,7 +243,7 @@ Para rodar:
 pio test -e native
 ```
 
-**No Helike** — São 25 testes unitários entre 3 módulos (Vz, apogeu, validação). Todos rodam via `pio test -e native`.
+No Helike - São 25 testes unitários entre 3 módulos (Vz, apogeu, validação). Todos rodam via `pio test -e native`.
 
 ---
 
@@ -284,11 +284,11 @@ pio run -e helike_esp32c3 \
 
 ## 9. Boas práticas
 
-1. **Cabeçalhos em `lib/`**: sejam header-only e sem dependência de Arduino (use apenas C++ padrão).
-2. **`lib_deps` no .ini**: nunca baixe bibliotecas manualmente.
-3. **Commits sem `pio run`**: `.pio/` e `.piolibdeps/` no `.gitignore`.
-4. **Testes antes do firmware**: implemente e teste a lógica em `native` antes de subir pra placa.
-5. **Constantes no `platformio.ini`**: use `build_flags` para definir pinos e thresholds (evite hardcoded).
+1. Cabeçalhos em `lib/`: sejam header-only e sem dependência de Arduino (use apenas C++ padrão).
+2. `lib_deps` no .ini: nunca baixe bibliotecas manualmente.
+3. Commits sem `pio run`: `.pio/` e `.piolibdeps/` no `.gitignore`.
+4. Testes antes do firmware: implemente e teste a lógica em `native` antes de subir pra placa.
+5. Constantes no `platformio.ini`: use `build_flags` para definir pinos e thresholds (evite hardcoded).
 
 ---
 
@@ -305,24 +305,24 @@ pio run -e helike_esp32c3 \
 
 ## Exercícios práticos
 
-### Nível 1 — Setup e build
+### Nível 1 - Setup e build
 
 1. Crie um projeto PlatformIO do zero para ESP32-C3.
 2. Configure `monitor_speed = 115200` e faça um blink.
 3. Compile e faça upload.
 
-### Nível 2 — Múltiplos ambientes
+### Nível 2 - Múltiplos ambientes
 
 1. Adicione um ambiente `native` para testes.
 2. Crie um módulo simples em `lib/` (ex: `CalculadoraMedia`) e teste no PC.
 
-### Nível 3 — Migração
+### Nível 3 - Migração
 
 1. Pegue o sketch da Semana 3 (Arduino IDE) e migre para PlatformIO.
 2. Separe sensores, comunicação e lógica em módulos dentro de `lib/`.
 3. Extraia constantes (pinos, thresholds) para `build_flags` no `platformio.ini`.
 
-### Nível 4 — Testes
+### Nível 4 - Testes
 
 1. Escreva testes para a lógica de detecção de apogeu do Flight Computer.
 2. Adicione um módulo de validação de dados em `lib/` com testes.
@@ -417,7 +417,7 @@ satellite/
 
 ### Módulos de cálculo reais (lib/calc/)
 
-**VerticalVelocity.h:**
+VerticalVelocity.h:
 ```cpp
 #pragma once
 
@@ -436,7 +436,7 @@ public:
         if (dt <= 0.0f) return m_vz;
         
         float vz_raw = (altitude - m_prev_altitude) / dt;
-        m_vz = m_alpha * vz_raw + (1.0f - m_alpha) * m_vz;
+        m_vz = m_alpha  vz_raw + (1.0f - m_alpha)  m_vz;
         
         m_prev_altitude = altitude;
         m_prev_timestamp = timestamp_ms;
@@ -458,7 +458,7 @@ private:
 };
 ```
 
-**ApogeeDetection.h:**
+ApogeeDetection.h:
 ```cpp
 #pragma once
 

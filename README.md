@@ -1,4 +1,4 @@
-# Treinamento Telemetria — Serra Rocketry
+# Treinamento Telemetria - Serra Rocketry
 
 Repositório de treinamento do time de telemetria, com trilhas, semanas e entregas semanais via issues e PRs.
 
@@ -20,8 +20,8 @@ Repositório de treinamento do time de telemetria, com trilhas, semanas e entreg
 | [PlatformIO](docs/trilhas/platformio.md) | Organização de projetos, testes nativos |
 | [GitHub](docs/trilhas/github.md) | Git, branches, issues, PRs |
 | [KiCad](docs/trilhas/kicad.md) | Esquemático, PCB, ERC |
-| **[Arquitetura de Firmware](docs/trilhas/firmware-architecture.md)** | FreeRTOS, FSM, padrões OOP |
-| **[Sensores e Protocolos](docs/trilhas/sensors.md)** | I2C, SPI, sensores, LoRa |
+| [Arquitetura de Firmware](docs/trilhas/firmware-architecture.md) | FreeRTOS, FSM, padrões OOP |
+| [Sensores e Protocolos](docs/trilhas/sensors.md) | I2C, SPI, sensores, LoRa |
 
 ## Semanas do Treinamento
 
@@ -34,8 +34,8 @@ Repositório de treinamento do time de telemetria, com trilhas, semanas e entreg
 | 4 | PlatformIO | Migração + testes |
 | 5 | Integração | Arduino ↔ Python |
 | 6 | KiCad | Esquemático + ERC |
-| 7 | **Projetos reais** | Resumo FC + Helike |
-| 8 | **Capstone** | Pipeline end-to-end |
+| 7 | Projetos reais | Resumo FC + Helike |
+| 8 | Capstone | Pipeline end-to-end |
 
 ## Padrões de entrega
 

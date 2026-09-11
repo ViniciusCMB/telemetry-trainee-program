@@ -70,7 +70,7 @@ with open("telemetria.csv") as f:
         print(row["altitude_m"], row["temperatura_C"])
 ```
 
-**Exemplo real** — O Flight Computer loga sensores em CSV com colunas como `timestamp_ms, altitude_m, ax, ay, az, pressao_hPa`.
+Exemplo real - O Flight Computer loga sensores em CSV com colunas como `timestamp_ms, altitude_m, ax, ay, az, pressao_hPa`.
 
 ### 1.2 Parsing de pacotes serial
 
@@ -96,7 +96,7 @@ def parse_packet(line: str) -> dict | None:
     }
 ```
 
-**No Helike** — Os testes de integração (v3) enviam pacotes de 15 campos pela serial para validação.
+No Helike - Os testes de integração (v3) enviam pacotes de 15 campos pela serial para validação.
 
 ### 1.3 Validação de dados
 
@@ -108,7 +108,7 @@ def validate_sensor_data(data: dict) -> bool:
     if altitude is None or altitude < -100 or altitude > 10000:
         return False
     ax, ay, az = data.get("ax", 0), data.get("ay", 0), data.get("az", 0)
-    g = (ax**2 + ay**2 + az**2) ** 0.5
+    g = (ax2 + ay2 + az2)  0.5
     if g < 8.0 or g > 11.0:
         return False
     return True
@@ -149,7 +149,7 @@ def detect_apogee(altitudes: list, window: int = 3) -> int:
     return -1
 ```
 
-**No Flight Computer** — A detecção real usa velocidade vertical (Vz) com filtro EMA, mas a lógica conceitual é a mesma.
+No Flight Computer - A detecção real usa velocidade vertical (Vz) com filtro EMA, mas a lógica conceitual é a mesma.
 
 ### 2.3 Filtro EMA (Exponential Moving Average)
 
@@ -159,7 +159,7 @@ Usado no Helike para suavizar leituras de altitude e calcular Vz:
 def ema_filter(values: list, alpha: float = 0.3) -> list:
     result = [values[0]]
     for v in values[1:]:
-        result.append(alpha * v + (1 - alpha) * result[-1])
+        result.append(alpha  v + (1 - alpha)  result[-1])
     return result
 ```
 
@@ -185,7 +185,7 @@ plt.grid(True)
 plt.savefig("perfil_voo.png")
 ```
 
-**No Helike** — A simulação da asa SRAB gera gráficos de altitude, velocidade e ângulo de cone automaticamente.
+No Helike - A simulação da asa SRAB gera gráficos de altitude, velocidade e ângulo de cone automaticamente.
 
 ---
 
@@ -209,13 +209,13 @@ print(f"Std:    {np.std(altitudes):.2f}")
 print(f"Max:    {np.max(altitudes):.2f}")
 ```
 
-**No Helike** — A simulação da asa SRAB usa scipy para integrar EDOs (solve_ivp) e otimizar parâmetros.
+No Helike - A simulação da asa SRAB usa scipy para integrar EDOs (solve_ivp) e otimizar parâmetros.
 
 ---
 
 ## 5. Exercícios práticos
 
-### Nível 1 — Leitura e estatísticas
+### Nível 1 - Leitura e estatísticas
 
 1. Dado um CSV de telemetria (timestamp, altitude, ax, ay, az), calcule:
    - Altitude máxima, mínima e média
@@ -224,19 +224,19 @@ print(f"Max:    {np.max(altitudes):.2f}")
 
 2. Salve o resumo em um arquivo `.txt`.
 
-### Nível 2 — Parser e validação
+### Nível 2 - Parser e validação
 
 1. Crie um parser que receba linhas no formato `#t;alt;ax;ay;az#` e retorne um dicionário.
 2. Adicione validação: rejeite valores fora do range físico.
 3. Conte e exiba estatísticas de pacotes válidos vs inválidos.
 
-### Nível 3 — Análise de série temporal
+### Nível 3 - Análise de série temporal
 
 1. Detecte o apogeu em uma série de altitude.
 2. Aplique um filtro EMA e compare o resultado com os dados brutos (gráfico sobreposto).
 3. Calcule a velocidade vertical (Vz) por diferença finita.
 
-### Nível 4 — Conexão com projetos reais
+### Nível 4 - Conexão com projetos reais
 
 1. Leia um arquivo CSV gerado pelo Flight Computer (Helike ou FC) e reproduza o perfil de voo.
 2. Identifique as fases do voo (ascensão, queda, pouso) com base na altitude e Vz.

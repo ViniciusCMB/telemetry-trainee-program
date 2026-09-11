@@ -78,13 +78,13 @@ graph TB
 
 O protocolo mais comum para sensores. Usa apenas 2 fios (SDA + SCL) e suporta múltiplos dispositivos com endereços diferentes.
 
-**Características:**
-- **Fios**: SDA (dados) + SCL (clock)
-- **Endereços**: 7 bits (0x03 a 0x77 típico)
-- **Velocidade**: 100 kHz (Standard), 400 kHz (Fast)
-- **Pull-ups**: Necessários em SDA e SCL (geralmente 10kΩ a 3.3V)
+Características:
+- Fios: SDA (dados) + SCL (clock)
+- Endereços: 7 bits (0x03 a 0x77 típico)
+- Velocidade: 100 kHz (Standard), 400 kHz (Fast)
+- Pull-ups: Necessários em SDA e SCL (geralmente 10kΩ a 3.3V)
 
-**Endereços I2C nos projetos:**
+Endereços I2C nos projetos:
 
 | Dispositivo | Endereço | Projeto |
 |-------------|----------|---------|
@@ -95,7 +95,7 @@ O protocolo mais comum para sensores. Usa apenas 2 fios (SDA + SCL) e suporta m�
 | MPU6050 | 0x68 | Flight Computer v1 |
 | LSM6DS3 | 0x6B | Flight Computer v2 |
 
-**Scan I2C — como descobrir dispositivos:**
+Scan I2C - como descobrir dispositivos:
 
 ```cpp
 #include <Wire.h>
@@ -116,13 +116,13 @@ void scanI2C() {
 
 Protocolo mais rápido, usado para LoRa, SD card e alguns sensores.
 
-**Características:**
-- **Fios**: MOSI (master→slave), MISO (slave→master), SCK (clock), CS (chip select)
-- **Velocidade**: Até 80 MHz (ESP32)
-- **Full-duplex**: Envia e recebe simultaneamente
-- **CS por dispositivo**: Cada slave tem seu pino CS
+Características:
+- Fios: MOSI (master→slave), MISO (slave→master), SCK (clock), CS (chip select)
+- Velocidade: Até 80 MHz (ESP32)
+- Full-duplex: Envia e recebe simultaneamente
+- CS por dispositivo: Cada slave tem seu pino CS
 
-**SPI nos projetos:**
+SPI nos projetos:
 
 | Dispositivo | MOSI | MISO | SCK | CS | Projeto |
 |-------------|------|------|-----|-----|---------|
@@ -130,7 +130,7 @@ Protocolo mais rápido, usado para LoRa, SD card e alguns sensores.
 | SD Card | GPIO6 | GPIO5 | GPIO4 | GPIO10 | Helike |
 | RFM95W LoRa | GPIO11 | GPIO13 | GPIO12 | GPIO10 | FC |
 
-**Atenção**: Helike e FC compartilham SPI entre LoRa e SD Card!
+Atenção: Helike e FC compartilham SPI entre LoRa e SD Card!
 
 ---
 
@@ -142,11 +142,11 @@ Protocolo mais rápido, usado para LoRa, SD card e alguns sensores.
 |-----------|--------|--------|
 | Pressão | 300-1100 hPa | 300-1100 hPa |
 | Temperatura | -40 a +85°C | -40 a +85°C |
-| Umidade | — | 0-100% RH |
+| Umidade | - | 0-100% RH |
 | Interface | I2C (0x76/0x77) | I2C (0x76/0x77) |
 | Precisão | ±1 hPa | ±1 hPa |
 
-**Leitura básica:**
+Leitura básica:
 
 ```cpp
 #include <Wire.h>
@@ -183,13 +183,13 @@ void loop() {
 
 Barômetro de alta precisão usado no Flight Computer v2.
 
-**Especificações:**
+Especificações:
 - Precisão: ±0.06 hPa (relativa), ±0.5 hPa (absoluta)
 - Range: 300-1250 hPa
 - Interface: I2C (endereço configurável, padrão 0x76/0x77)
 - Taxa: Até 200 Hz
 
-**Fallback**: Se BMP585 não for encontrado, o firmware usa BMP280.
+Fallback: Se BMP585 não for encontrado, o firmware usa BMP280.
 
 ---
 
@@ -215,7 +215,7 @@ IMU de 6 eixos de alta performance.
 | Sensitivity | 4096 LSB/g | 65.5 LSB/°/s |
 | Interface | I2C (0x69) | I2C (0x69) |
 
-**Leitura ICM-20602:**
+Leitura ICM-20602:
 
 ```cpp
 #include <Wire.h>
@@ -272,7 +272,7 @@ Módulos GPS que fornecem posição, altitude e hora.
 | Protocolo | NMEA 0183 | NMEA 0183 |
 | Interface | UART (9600 baud) | UART (9600 baud) |
 
-**Uso com TinyGPS++:**
+Uso com TinyGPS++:
 
 ```cpp
 #include <TinyGPSPlus.h>
@@ -316,7 +316,7 @@ O LoRa é usado para transmissão de telemetria de longo alcance.
 | CRC | Habilitado |
 | Alcance | ~4 km (campo aberto) |
 
-**Envio e recepção:**
+Envio e recepção:
 
 ```cpp
 #include <SPI.h>
@@ -384,7 +384,7 @@ void setup() {
 }
 ```
 
-### 6.2 Exemplo completo — Leitura de todos os sensores
+### 6.2 Exemplo completo - Leitura de todos os sensores
 
 ```cpp
 void readAllSensors() {
@@ -423,25 +423,25 @@ void readAllSensors() {
 
 ## 7. Exercícios práticos
 
-### Nível 1 — I2C básico
+### Nível 1 - I2C básico
 
 1. Faça scan I2C e liste todos os dispositivos encontrados
 2. Leia BMP280 e imprima altitude, temperatura e pressão
 3. Leia acelerômetro (MPU6050 ou ICM-20602) e imprima valores
 
-### Nível 2 — SPI e LoRa
+### Nível 2 - SPI e LoRa
 
 1. Configure LoRa e envie um pacote a cada segundo
 2. Receba pacotes e imprima na serial
 3. Adicione RSSI (potência do sinal recebido)
 
-### Nível 3 — Integração
+### Nível 3 - Integração
 
 1. Leia barômetro + IMU + GPS simultaneamente
 2. Monte um pacote CSV com todos os campos
 3. Transmita via LoRa
 
-### Nível 4 — Projeto real
+### Nível 4 - Projeto real
 
 1. Estude o pinout do Helike em `docs/hardware.md`
 2. Implemente a leitura de todos os sensores

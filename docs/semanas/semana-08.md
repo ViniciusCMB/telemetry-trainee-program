@@ -1,4 +1,4 @@
-# Semana 8 — Capstone
+# Semana 8 - Capstone
 
 ## Objetivo
 
@@ -16,18 +16,18 @@ Integrar tudo que aprendeu em um pipeline end-to-end: Arduino gera dados → Pyt
 
 Implemente um pipeline completo de telemetria com 4 fases, inspirado nos projetos reais.
 
-### Fase 1 — Aquisição (Arduino)
+### Fase 1 - Aquisição (Arduino)
 
 O ESP32-C3 deve funcionar como um mini Flight Computer:
 
-**Hardware:**
+Hardware:
 - ESP32-C3 Super Mini
 - BMP280 (I2C, endereço 0x76)
 - LED (GPIO 1) como heartbeat
 - Buzzer (GPIO 0) para alertas
 - Botão (GPIO 2) para trigger manual
 
-**Firmware:**
+Firmware:
 ```cpp
 // main.cpp
 #include <Arduino.h>
@@ -124,19 +124,19 @@ void loop() {
 }
 ```
 
-**Formato do pacote:**
+Formato do pacote:
 ```
 #timestamp;alt;ax;ay;az;temp;pres;checksum#
 Exemplo: #12345;150.25;0.01;0.02;9.81;25.3;1013.25;A3#
 ```
 
-### Fase 2 — Recepção (Python)
+### Fase 2 - Recepção (Python)
 
 Script que recebe, valida e armazena dados:
 
 ```python
 #!/usr/bin/env python3
-"""receptor.py — Recebe pacotes do ESP32 via serial"""
+"""receptor.py - Recebe pacotes do ESP32 via serial"""
 
 import serial
 import csv
@@ -170,7 +170,7 @@ def parse_packet(line):
     if altitude < -100 or altitude > 10000:
         return None, f"Altitude fora do range: {altitude}"
     
-    g = (ax**2 + ay**2 + az**2) ** 0.5
+    g = (ax2 + ay2 + az2)  0.5
     if g < 8.0 or g > 12.0:
         return None, f"Aceleração fora do range: {g:.2f}g"
     
@@ -259,13 +259,13 @@ if __name__ == '__main__':
     main()
 ```
 
-### Fase 3 — Análise (Python)
+### Fase 3 - Análise (Python)
 
 Script que gera relatório e gráficos:
 
 ```python
 #!/usr/bin/env python3
-"""analise.py — Analisa dados de telemetria coletados"""
+"""analise.py - Analisa dados de telemetria coletados"""
 
 import csv
 import matplotlib.pyplot as plt
@@ -353,12 +353,12 @@ if __name__ == '__main__':
     main()
 ```
 
-### Fase 4 — Documentação
+### Fase 4 - Documentação
 
 README.md completo com:
 
 ```markdown
-# Capstone — Pipeline de Telemetria
+# Capstone - Pipeline de Telemetria
 
 ## Visão Geral
 
@@ -452,7 +452,7 @@ capstone/
 | Documentação | 20% | README, gráfico, lições |
 | Organização | 15% | Estrutura de pastas, gitignore |
 
-**Bonus (até +10%):**
+Bonus (até +10%):
 - Checksum funcional (+3%)
 - Detecção de apogeu (+3%)
 - Testes automatizados (+2%)

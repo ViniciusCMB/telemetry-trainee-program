@@ -2,7 +2,7 @@
 
 Referência visual do que você deve esperar de cada etapa do treinamento.
 
-## Python — Saída Esperada
+## Python - Saída Esperada
 
 ### Estatísticas de CSV
 
@@ -50,7 +50,7 @@ Perfil de Voo - Flight Computer
 
 ---
 
-## Arduino — Serial Monitor
+## Arduino - Serial Monitor
 
 ### Formato de Pacote
 
@@ -83,7 +83,7 @@ ERRO:BMP280#
 
 ---
 
-## PlatformIO — Build Output
+## PlatformIO - Build Output
 
 ### Compilação Bem-Sucedida
 
@@ -110,7 +110,7 @@ test/test_apogee/test_apogee.cpp:12:test_detect_apogee: PASS
 
 ---
 
-## KiCad — Verificações
+## KiCad - Verificações
 
 ### ERC (Electrical Rules Check)
 
@@ -133,7 +133,7 @@ DRC Messages:
 
 ---
 
-## GitHub — PR Template
+## GitHub - PR Template
 
 ### Pull Request Title
 

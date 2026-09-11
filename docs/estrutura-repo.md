@@ -68,12 +68,12 @@ treinamento-telemetria/
 | PlatformIO | `trilhas/platformio.md` | Organização, testes nativos, multi-env |
 | GitHub | `trilhas/github.md` | Git, branches, issues, PRs |
 | KiCad | `trilhas/kicad.md` | Esquemático, PCB, ERC |
-| **Arquitetura de Firmware** | `trilhas/firmware-architecture.md` | FreeRTOS, FSM, OOP |
-| **Sensores e Protocolos** | `trilhas/sensors.md` | I2C, SPI, sensores, LoRa |
+| Arquitetura de Firmware | `trilhas/firmware-architecture.md` | FreeRTOS, FSM, OOP |
+| Sensores e Protocolos | `trilhas/sensors.md` | I2C, SPI, sensores, LoRa |
 
 ## Observações
 
-- As trilhas podem ter **links para material externo**, mas as tarefas ficam nas issues.
+- As trilhas podem ter links para material externo, mas as tarefas ficam nas issues.
 - Cada semana referencia uma trilha principal e uma entrega verificável.
 - A pasta `examples/` deve conter códigos simples e testáveis.
-- As trilhas de **Arquitetura de Firmware** e **Sensores** são complementares e conectam diretamente com os projetos reais (Flight Computer e Helike).
+- As trilhas de Arquitetura de Firmware e Sensores são complementares e conectam diretamente com os projetos reais (Flight Computer e Helike).

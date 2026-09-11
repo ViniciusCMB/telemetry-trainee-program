@@ -1,6 +1,6 @@
 # Visão Geral do Treinamento
 
-O treinamento de telemetria da Serra Rocketry prepara novos membros para atuar nos projetos de **Flight Computer** e **Helike (satélite)**.
+O treinamento de telemetria da Serra Rocketry prepara novos membros para atuar nos projetos de Flight Computer e Helike (satélite).
 
 ## O que você vai aprender
 
@@ -21,13 +21,13 @@ O treinamento de telemetria da Serra Rocketry prepara novos membros para atuar n
 
 | Projeto | Descrição | Tecnologias |
 |---------|-----------|-------------|
-| **Flight Computer** | Computador de bordo para foguete | ESP32-S3, FreeRTOS, BMP585, LoRa |
-| **Helike** | Satélite PocketQube | ESP32-C3, PlatformIO, BME280, LoRa |
+| Flight Computer | Computador de bordo para foguete | ESP32-S3, FreeRTOS, BMP585, LoRa |
+| Helike | Satélite PocketQube | ESP32-C3, PlatformIO, BME280, LoRa |
 
 ## Estrutura do treinamento
 
-- **8 semanas** de entregas progressivas
-- **7 trilhas** de conteúdo
+- 8 semanas de entregas progressivas
+- 7 trilhas de conteúdo
 - Issues semanais com critérios claros
 - PRs revisados toda semana
 - Mini-projeto final (capstone)

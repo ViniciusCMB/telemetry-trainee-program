@@ -2,162 +2,162 @@
 
 ## Formato semanal (fixo)
 
-- **Mini-aula curta** (20–30 min)
-- **Issues da semana** (1–3 tarefas)
-- **PR até o fim da semana**
-- **Sessão semanal de revisão de PR** (30–40 min)
+- Mini-aula curta (20–30 min)
+- Issues da semana (1–3 tarefas)
+- PR até o fim da semana
+- Sessão semanal de revisão de PR (30–40 min)
 
 ---
 
-## Semana 0 — Onboarding & GitHub
+## Semana 0 - Onboarding & GitHub
 
-**Objetivo**: alinhar ferramentas e fluxo de trabalho.
+Objetivo: alinhar ferramentas e fluxo de trabalho.
 
-**Trilha principal**: [GitHub](trilhas/github.md)
+Trilha principal: [GitHub](trilhas/github.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Setup (VSCode, Python, Arduino, PlatformIO, KiCad)
 - Clonar repo + criar branch `nome-sobrenome`
 - PR "hello world" + README pessoal
 
-**Extra (opcional)**:
+Extra (opcional):
 - Checklist de leitura rápida (documentação do time)
 
 ---
 
-## Semana 1 — Python básico (telemetria)
+## Semana 1 - Python básico (telemetria)
 
-**Objetivo**: Processar dados de telemetria em CSV.
+Objetivo: Processar dados de telemetria em CSV.
 
-**Trilha principal**: [Python](trilhas/python.md)
+Trilha principal: [Python](trilhas/python.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Script lê CSV de telemetria e imprime estatísticas
 - Salvar resumo em arquivo
 
-**Extra (opcional)**:
+Extra (opcional):
 - Gráfico simples (matplotlib)
 
-**Conexão com projetos reais**: Análise pós-voo do Flight Computer e Helike.
+Conexão com projetos reais: Análise pós-voo do Flight Computer e Helike.
 
 ---
 
-## Semana 2 — Python aplicado (pacotes)
+## Semana 2 - Python aplicado (pacotes)
 
-**Objetivo**: Parser e validação de dados.
+Objetivo: Parser e validação de dados.
 
-**Trilha principal**: [Python](trilhas/python.md)
+Trilha principal: [Python](trilhas/python.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Parser de pacote (string → dict)
 - Validação simples (checksum ou tamanho)
 
-**Extra (opcional)**:
+Extra (opcional):
 - Exportar JSON
 
-**Conexão com projetos reais**: Formato de pacote do Helike (18 campos + '#').
+Conexão com projetos reais: Formato de pacote do Helike (18 campos + '#').
 
 ---
 
-## Semana 3 — Arduino IDE (fundamentos)
+## Semana 3 - Arduino IDE (fundamentos)
 
-**Objetivo**: Programação básica de microcontroladores.
+Objetivo: Programação básica de microcontroladores.
 
-**Trilha principal**: [Arduino IDE](trilhas/arduino-ide.md)
+Trilha principal: [Arduino IDE](trilhas/arduino-ide.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Blink + leitura de sensor simulado
 - Envio serial com pacote formatado
 
-**Extra (opcional)**:
+Extra (opcional):
 - Checksum no payload
 
-**Conexão com projetos reais**: GPIO, I2C, serial usados em ambos os projetos.
+Conexão com projetos reais: GPIO, I2C, serial usados em ambos os projetos.
 
 ---
 
-## Semana 4 — PlatformIO (organização)
+## Semana 4 - PlatformIO (organização)
 
-**Objetivo**: Organização profissional de projetos.
+Objetivo: Organização profissional de projetos.
 
-**Trilha principal**: [PlatformIO](trilhas/platformio.md)
+Trilha principal: [PlatformIO](trilhas/platformio.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Mesmo projeto da Semana 3 em PlatformIO
 - Organização de libs e estrutura de código
 
-**Extra (opcional)**:
+Extra (opcional):
 - README de setup
 
-**Conexão com projetos reais**: Helike usa PlatformIO com testes nativos.
+Conexão com projetos reais: Helike usa PlatformIO com testes nativos.
 
 ---
 
-## Semana 5 — Integração Arduino ↔ Python
+## Semana 5 - Integração Arduino ↔ Python
 
-**Objetivo**: Comunicação entre hardware e software.
+Objetivo: Comunicação entre hardware e software.
 
-**Trilhas relacionadas**: [Arduino IDE](trilhas/arduino-ide.md), [Python](trilhas/python.md)
+Trilhas relacionadas: [Arduino IDE](trilhas/arduino-ide.md), [Python](trilhas/python.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Arduino envia pacotes periódicos
 - Python recebe, parseia e loga
 
-**Extra (opcional)**:
+Extra (opcional):
 - Detecção de pacote corrompido
 
-**Conexão com projetos reais**: Telemetria LoRa → estação terrestre Python.
+Conexão com projetos reais: Telemetria LoRa → estação terrestre Python.
 
 ---
 
-## Semana 6 — KiCad básico
+## Semana 6 - KiCad básico
 
-**Objetivo**: Design de circuitos eletrônicos.
+Objetivo: Design de circuitos eletrônicos.
 
-**Trilha principal**: [KiCad](trilhas/kicad.md)
+Trilha principal: [KiCad](trilhas/kicad.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Esquemático simples (sensor + MCU)
 - Export PDF + checklist ERC
 
-**Extra (opcional)**:
+Extra (opcional):
 - PCB simples
 
-**Conexão com projetos reais**: PCB do CDB (Helike) e placa do Flight Computer.
+Conexão com projetos reais: PCB do CDB (Helike) e placa do Flight Computer.
 
 ---
 
-## Semana 7 — Contexto dos projetos reais (FC + Helike)
+## Semana 7 - Contexto dos projetos reais (FC + Helike)
 
-**Objetivo**: Entender a arquitetura dos projetos reais.
+Objetivo: Entender a arquitetura dos projetos reais.
 
-**Trilhas recomendadas**:
+Trilhas recomendadas:
 - [Arquitetura de Firmware](trilhas/firmware-architecture.md)
 - [Sensores e Protocolos](trilhas/sensors.md)
 
-**Entregas (issues)**:
+Entregas (issues):
 - Resumo técnico do Flight Computer
 - Resumo técnico do Helike
 - Mapa conceitual (FSM + Telemetria + Power)
 - Tabela comparativa entre os projetos
 
-**Roteiro detalhado**: [Semana 7](semanas/semana-07.md)
+Roteiro detalhado: [Semana 7](semanas/semana-07.md)
 
 ---
 
-## Semana 8 — Mini-projeto final (capstone)
+## Semana 8 - Mini-projeto final (capstone)
 
-**Objetivo**: Pipeline end-to-end de telemetria.
+Objetivo: Pipeline end-to-end de telemetria.
 
-**Trilhas relacionadas**: Todas as anteriores
+Trilhas relacionadas: Todas as anteriores
 
-**Entregas (issues)**:
+Entregas (issues):
 - Pipeline completo: gerar → transmitir → parsear → logar → analisar
 - Firmware com sensor + checksum + detecção de apogeu
 - Script Python com receptor + análise + gráficos
 - README completo com resultados
 
-**Roteiro detalhado**: [Semana 8](semanas/semana-08.md)
+Roteiro detalhado: [Semana 8](semanas/semana-08.md)
 
 ---
 

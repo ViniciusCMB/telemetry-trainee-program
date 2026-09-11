@@ -1,4 +1,4 @@
-# Semana 7 — Contexto dos projetos (Flight Computer + Helike)
+# Semana 7 - Contexto dos projetos (Flight Computer + Helike)
 
 ## Objetivo
 
@@ -14,55 +14,55 @@ Entender a arquitetura dos dois projetos principais do setor e identificar onde 
 
 ## Problema
 
-### Tarefa 1 — Resumo do Flight Computer
+### Tarefa 1 - Resumo do Flight Computer
 
 Explore o repositório do Flight Computer e responda por escrito:
 
-**Arquitetura:**
+Arquitetura:
 - Qual o microcontrolador? (ESP32-S3, dual-core 240MHz)
 - Quais sensores? (BMP585, LSM6DS3, NEO-8M)
 - Quais interfaces? (I2C para sensores, SPI para LoRa+SD, UART para GPS)
 - Como o FreeRTOS organiza as tasks? (3 tasks em 2 cores)
 
-**FSM de voo:**
+FSM de voo:
 - Quais os 4 estados? (IDLE → ASCENT → DESCENT → LANDED)
 - Quais os 7 sub-event flags? (liftoff, burnout, apogeu, freefall, parachute)
 - Como o paraquedas é disparado? (apogeu + Vz negativa confirmada)
 
-**Arquivo de configuração:**
-- Estude `firmware/config.h` — quais parâmetros estão definidos?
+Arquivo de configuração:
+- Estude `firmware/config.h` - quais parâmetros estão definidos?
 - Entenda os thresholds: `LIFTOFF_THRESHOLD`, `BURNOUT_THRESHOLD`, `PARACHUTE_MIN_ALTITUDE`
 
-Entregue um resumo de **no máximo 1 página** com:
+Entregue um resumo de no máximo 1 página com:
 - Diagrama da arquitetura (Mermaid)
 - Tabela de hardware (componente, interface, função)
 - Fluxo de dados: sensor → processamento → armazenamento → transmissão
 
-### Tarefa 2 — Resumo do Helike (satélite)
+### Tarefa 2 - Resumo do Helike (satélite)
 
 Explore o repositório `satellite` e responda:
 
-**Plataforma:**
+Plataforma:
 - Qual o formato? (PocketQube 1P)
 - Qual o microcontrolador? (ESP32-C3, single-core RISC-V)
 - Por que não usa FreeRTOS? (Satélite liga já descendo, loop simples)
 
-**Organização:**
+Organização:
 - Como o PlatformIO está configurado? (2 ambientes: helike_esp32c3 + native)
 - O que tem em `lib/calc/`? (VerticalVelocity, ApogeeDetection, DataValidation)
 - Como são os testes? (25 testes Unity em 3 módulos)
 
-**Sensores e comunicação:**
+Sensores e comunicação:
 - Quais sensores? (BME280, ICM-20602, NEO-8M)
 - Qual a frequência do LoRa? (915 MHz, SF7, 125 kHz)
 - Como é o formato do pacote? (18 campos CSV + terminador '#')
 
-Entregue um resumo de **no máximo 1 página** com:
+Entregue um resumo de no máximo 1 página com:
 - Diagrama do satélite (componentes principais)
 - Fluxo de dados: sensor → SD → LoRa → estação terrestre
 - Tabela de componentes
 
-### Tarefa 3 — Mapa conceitual
+### Tarefa 3 - Mapa conceitual
 
 Desenhe um mapa (Mermaid, diagrama de blocos ou mesmo ASCII) que mostre:
 
@@ -79,7 +79,7 @@ ARMAZENAMENTO (SD/LittleFS)  ──→  LORA (RFM95W)
                                ESTAÇÃO TERRESTRE (Python)
 ```
 
-**Indique onde cada semana do treinamento se aplica:**
+Indique onde cada semana do treinamento se aplica:
 
 | Semana | Tema | Onde aparece nos projetos |
 |--------|------|---------------------------|
@@ -93,7 +93,7 @@ ARMAZENAMENTO (SD/LittleFS)  ──→  LORA (RFM95W)
 | 7 | Contexto reais | Esta semana |
 | 8 | Capstone | Pipeline end-to-end |
 
-### Tarefa 4 — Comparação técnica
+### Tarefa 4 - Comparação técnica
 
 Crie uma tabela comparando os dois projetos:
 

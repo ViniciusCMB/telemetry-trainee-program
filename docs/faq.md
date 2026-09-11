@@ -67,18 +67,18 @@ git log --oneline
 
 ### "FileNotFoundError" ao rodar o script
 
-**Causa:** Caminho do CSV errado.
+Causa: Caminho do CSV errado.
 
-**Soluções:**
+Soluções:
 - Use caminho relativo: `python script.py dados/teste.csv`
 - Verifique se o arquivo existe: `ls dados/`
 - Use `sys.argv` para receber o caminho como argumento
 
 ### "ValueError: could not convert string to float"
 
-**Causa:** Linha do CSV com caractere não numérico.
+Causa: Linha do CSV com caractere não numérico.
 
-**Solução:** Use `try/except`:
+Solução: Use `try/except`:
 ```python
 try:
     altitude = float(row["altitude_m"])
@@ -88,9 +88,9 @@ except ValueError:
 
 ### CSV retorna 0 linhas
 
-**Causa:** Arquivo vazio ou `DictReader` não encontrou cabeçalho.
+Causa: Arquivo vazio ou `DictReader` não encontrou cabeçalho.
 
-**Solução:** Verifique se o CSV tem cabeçalho na primeira linha.
+Solução: Verifique se o CSV tem cabeçalho na primeira linha.
 
 ### Como instalo bibliotecas Python?
 
@@ -104,12 +104,12 @@ pip install numpy matplotlib scipy
 
 ### Placa não aparece na porta COM/ACM
 
-**Causas possíveis:**
+Causas possíveis:
 1. Cabo USB sem dados (apenas alimentação)
 2. Driver não instalado (CP2102 ou CH340)
 3. Porta errada no Arduino IDE
 
-**Solução:**
+Solução:
 ```bash
 # Linux - listar portas disponíveis
 ls /dev/tty*
@@ -121,31 +121,31 @@ sudo usermod -a -G dialout $USER
 
 ### "Failed to connect to ESP32"
 
-**Causa:** ESP32 não está em modo de upload.
+Causa: ESP32 não está em modo de upload.
 
-**Solução:**
+Solução:
 1. Segure o botão BOOT
 2. Clique em Upload
 3. Solte BOOT quando começar a gravar
 
 ### Serial Monitor não mostra nada
 
-**Causa:** Baud rate errado.
+Causa: Baud rate errado.
 
-**Solução:** Confirme que o Serial Monitor está em **115200 baud**.
+Solução: Confirme que o Serial Monitor está em 115200 baud.
 
 ### BMP280 não aparece no scan I2C
 
-**Verifique:**
+Verifique:
 1. Conexões: VCC→3.3V, GND→GND, SDA→GPIO4, SCL→GPIO5
 2. Pull-ups de 10kΩ no SDA e SCL
 3. Teste o endereço `0x77` se `0x76` não funcionar
 
 ### Taxa de amostragem varia muito
 
-**Causa:** Uso de `delay()` no loop.
+Causa: Uso de `delay()` no loop.
 
-**Solução:** Use `millis()`:
+Solução: Use `millis()`:
 ```cpp
 if (millis() - ultimo >= INTERVALO) {
     ultimo = millis();
@@ -208,15 +208,15 @@ Use a porta correta no script e feche outros programas que usam a serial.
 
 ### "serial.serialutil.SerialException"
 
-**Causa:** ESP desconectou ou porta ocupada.
+Causa: ESP desconectou ou porta ocupada.
 
-**Solução:** Use `try/except` e feche monitores/IDEs concorrentes.
+Solução: Use `try/except` e feche monitores/IDEs concorrentes.
 
 ### Perda de pacotes
 
-**Causa:** Python não lê rápido o suficiente.
+Causa: Python não lê rápido o suficiente.
 
-**Solução:** 
+Solução: 
 - Aumente o timeout do serial
 - Diminua a taxa do ESP (10 Hz em vez de 20 Hz)
 
@@ -231,11 +231,11 @@ Sim. Todo PR deve ter um README com instruções de execução.
 ### O que é "tipo semântico" nos commits?
 
 Prefixo que descreve a natureza da mudança:
-- `feat:` — nova funcionalidade
-- `fix:` — correção de bug
-- `docs:` — documentação
-- `test:` — testes
-- `refactor:` — refatoração
+- `feat:` - nova funcionalidade
+- `fix:` - correção de bug
+- `docs:` - documentação
+- `test:` - testes
+- `refactor:` - refatoração
 
 ### Posso usar outro nome de branch?
 

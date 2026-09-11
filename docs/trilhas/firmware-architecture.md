@@ -60,10 +60,10 @@ stateDiagram-v2
 
 ### 1.1 O que é um sistema real-time?
 
-Um sistema em tempo real não é necessariamente "rápido" — ele precisa **responder dentro de prazos determinados**. No contexto de foguetes e satélites:
+Um sistema em tempo real não é necessariamente "rápido" - ele precisa responder dentro de prazos determinados. No contexto de foguetes e satélites:
 
-- **Flight Computer**: precisa ler sensores e tomar decisões em 20ms (50 Hz)
-- **Helike**: precisa transmitir telemetria a cada 200ms (5 Hz)
+- Flight Computer: precisa ler sensores e tomar decisões em 20ms (50 Hz)
+- Helike: precisa transmitir telemetria a cada 200ms (5 Hz)
 
 ### 1.2 Criticalidade
 
@@ -75,18 +75,18 @@ Um sistema em tempo real não é necessariamente "rápido" — ele precisa **res
 
 ---
 
-## 2. FreeRTOS — Multi-tasking no ESP32
+## 2. FreeRTOS - Multi-tasking no ESP32
 
 ### 2.1 Conceitos básicos
 
 FreeRTOS é um sistema operacional de tempo real que permite executar múltiplas "tarefas" (threads) em paralelo. No ESP32-S3 (dual-core), tarefas podem rodar em cores diferentes.
 
-**Elementos fundamentais:**
+Elementos fundamentais:
 
-- **Task**: Thread independente com seu próprio stack
-- **Queue**: Canal de comunicação entre tasks (FIFO)
-- **Priority**: Nível de prioridade (maior número = maior prioridade)
-- **Semaphore/Mutex**: Controle de acesso a recursos compartilhados
+- Task: Thread independente com seu próprio stack
+- Queue: Canal de comunicação entre tasks (FIFO)
+- Priority: Nível de prioridade (maior número = maior prioridade)
+- Semaphore/Mutex: Controle de acesso a recursos compartilhados
 
 ### 2.2 Arquitetura do Flight Computer
 
@@ -132,14 +132,14 @@ void setup() {
         0                     // Core 0
     );
     
-    // Remover loop() — FreeRTOS assume o controle
+    // Remover loop() - FreeRTOS assume o controle
     vTaskDelete(NULL);
 }
 ```
 
 ### 2.3 Tarefa FlightControl (Core 1, 50 Hz)
 
-Esta é a task mais crítica — lê sensores, atualiza FSM e aciona o paraquedas:
+Esta é a task mais crítica - lê sensores, atualiza FSM e aciona o paraquedas:
 
 ```cpp
 void taskFlightControl(void *pvParameters) {
@@ -236,7 +236,7 @@ if (xQueueReceive(sensorDataQueue, &received, 0) == pdTRUE) {
 
 ### 3.1 Conceitos
 
-Uma FSM define **estados** e **transições** entre eles. No Flight Computer:
+Uma FSM define estados e transições entre eles. No Flight Computer:
 
 ```
 IDLE → ASCENT → DESCENT → LANDED
@@ -295,7 +295,7 @@ public:
                 break;
                 
             case FlightState::LANDED:
-                // Estado final — não transiciona
+                // Estado final - não transiciona
                 break;
         }
         
@@ -351,7 +351,7 @@ struct FlightEvents {
 O padrão ISensor permite trocar sensores sem modificar o código principal:
 
 ```cpp
-// ISensor.h — Interface abstrata
+// ISensor.h - Interface abstrata
 class ISensor {
 public:
     virtual ~ISensor() = default;
@@ -361,7 +361,7 @@ public:
     virtual SensorData getData() = 0;
 };
 
-// BMP585Sensor.h — Implementação concreta
+// BMP585Sensor.h - Implementação concreta
 class BMP585Sensor : public ISensor {
 public:
     bool begin() override {
@@ -405,26 +405,26 @@ void readSensors(ISensor* sensors[], int count) {
 
 ## 5. Exercícios práticos
 
-### Nível 1 — FSM básica
+### Nível 1 - FSM básica
 
 1. Implemente uma FSM com 3 estados: `OFF`, `ON`, `BLINK`
 2. Transições: botão liga/desliga
 3. No estado `BLINK`, o LED pisca a 2 Hz
 
-### Nível 2 — FreeRTOS simples
+### Nível 2 - FreeRTOS simples
 
 1. Crie 2 tasks: uma pisca LED, outra envia dados pela serial
 2. Use uma queue para enviar dados entre tasks
 3. Configure prioridades diferentes
 
-### Nível 3 — Integração completa
+### Nível 3 - Integração completa
 
 1. Implemente uma FSM de voo simplificada (IDLE → ASCENT → DESCENT)
 2. Use uma task para ler sensor e atualizar FSM
 3. Use outra task para transmitir dados
 4. Comunique via queue
 
-### Nível 4 — Projeto real
+### Nível 4 - Projeto real
 
 1. Estude a FSM do Flight Computer em `firmware/flight/FlightStateMachine.h`
 2. Analise as tasks em `FlightControlTask.h` e `TelemetryTask.h`
