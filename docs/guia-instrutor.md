@@ -131,17 +131,25 @@ Roteiro para conduzir o treinamento semana a semana.
 ## Semana 7 — Projetos reais
 
 **Mini-aula:**
-- Arquitetura do Flight Computer
-- Arquitetura do Helike
-- Onde cada semana se aplica
+- Arquitetura do Flight Computer (ESP32-S3, FreeRTOS, FSM)
+- Arquitetura do Helike (ESP32-C3, PlatformIO, loop simples)
+- Comparação técnica entre os projetos
+- Onde cada semana do treinamento se aplica
+
+**Material de apoio:**
+- Trilha [Arquitetura de Firmware](trilhas/firmware-architecture.md)
+- Trilha [Sensores e Protocolos](trilhas/sensors.md)
 
 **Perguntas para discussão:**
 - Quais componentes são comuns entre FC e Helike?
 - O que muda na estratégia de logging entre foguete e satélite?
+- Por que o Helike não usa FreeRTOS?
+- Como o FreeRTOS ajuda no Flight Computer?
 
 **Na revisão:**
 - Resumos mostram entendimento da arquitetura?
 - Mapa conceitual conecta semanas aos projetos?
+- Tabela comparativa está completa?
 
 ## Semana 8 — Capstone
 
