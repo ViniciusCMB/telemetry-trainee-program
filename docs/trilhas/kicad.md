@@ -15,6 +15,43 @@ KiCad é a ferramenta de design de PCB usada nos projetos da Serra Rocketry. O H
 - KiCad 8+ instalado
 - Conceitos básicos de eletrônica (GND, VCC, pull-up, I2C, SPI)
 
+## Fluxo de Design no KiCad
+
+```mermaid
+flowchart TD
+    A[Criar projeto] --> B[Esquemático - Eeschema]
+    B --> C[Adicionar componentes]
+    C --> D[Conectar pinos - Wire]
+    D --> E[ERC - Electrical Rules Check]
+    E -->|Erros| D
+    E -->|OK| F[Update PCB from Schematic]
+    F --> G[Posicionar componentes]
+    G --> H[Rotear trilhas]
+    H --> DRC[Design Rules Check]
+    DRC -->|Erros| H
+    DRC -->|OK| I[Exportar Gerber]
+    I --> J[Enviar para fabricação]
+    
+    style A fill:#ff6b35,color:#fff
+    style J fill:#2ea043,color:#fff
+```
+
+## Ferramentas do KiCad
+
+```mermaid
+graph LR
+    subgraph "KiCad"
+        E[Eeschema] --> P[Pcbnew]
+        P --> G[Gerber Viewer]
+    end
+    
+    E --> S[Symbol Editor]
+    P --> F[Footprint Editor]
+    
+    style E fill:#ff6b35,color:#fff
+    style P fill:#2ea043,color:#fff
+```
+
 ---
 
 ## 1. Visão geral do KiCad

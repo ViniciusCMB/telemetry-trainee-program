@@ -17,6 +17,45 @@ O Arduino IDE é a porta de entrada para programação de microcontroladores. Ta
 - Cabo USB-C
 - Jumpers e protoboard
 
+## Fluxo de um Sketch Arduino
+
+```mermaid
+flowchart TD
+    A[Início] --> B[setup executa 1x]
+    B --> C{loop infinito}
+    C --> D[Ler sensores]
+    D --> E[Processar dados]
+    E --> F[Enviar serial/LoRa]
+    F --> C
+    
+    style A fill:#ff6b35,color:#fff
+    style B fill:#2ea043,color:#fff
+```
+
+## Diagrama de Conexões ESP32-C3
+
+```
+┌─────────────────────────────────────────┐
+│           ESP32-C3 Super Mini          │
+├─────────────────────────────────────────┤
+│  3.3V ─────┬──────┬──────┐             │
+│  GND  ─────┼──────┼──────┼─────┐       │
+│  GPIO 0 ───┼──────┼──────┼─────┼─ Buzzer
+│  GPIO 1 ───┼──────┼──────┼─────┼─ LED   │
+│  GPIO 2 ───┼──────┼──────┼─────┼─ Botão │
+│  GPIO 4 ───┼──────┼──────┼─────┼─ SDA   │
+│  GPIO 5 ───┼──────┼──────┼─────┼─ SCL   │
+│  GPIO 7 ───┼──────┼──────┼─────┼─ LoRa CS│
+│  GPIO 8 ───┼──────┼──────┼─────┼─ LoRa MISO
+│  GPIO 9 ───┼──────┼──────┼─────┼─ LoRa SCK
+│  GPIO 10 ──┼──────┼──────┼─────┼─ LoRa MOSI
+└─────────────────────────────────────────┘
+        │     │      │      │
+        ▼     ▼      ▼      ▼
+      BMP280  LED  LoRa   Botão
+     (I2C)  (saída) (SPI) (entrada)
+```
+
 ---
 
 ## 1. GPIO básico — Blink
@@ -377,6 +416,53 @@ void loop() {
 | Servo PWM | Flight Computer | Disparo do paraquedas |
 | LoRa SPI | Ambos | Telemetria sem fio |
 | millis() sem delay | Ambos | Loop não-bloqueante |
+
+### Pinout real dos projetos
+
+**Flight Computer (ESP32-S3 v2.0):**
+```text
+GPIO 4  → RST_LORA   (LoRa Reset)
+GPIO 5  → DIO0_LORA  (LoRa Interrupt)
+GPIO 6  → BUZZER_PIN
+GPIO 7  → SERVO_PIN  (Parachute servo PWM)
+GPIO 8  → I2C_SDA    (BMP585 + LSM6DS3)
+GPIO 9  → I2C_SCL    (BMP585 + LSM6DS3)
+GPIO 10 → SS_LORA    (LoRa Chip Select)
+GPIO 14 → SD_CS_PIN  (SD Card Chip Select)
+GPIO 17 → RX_GPS     (UART RX — GPS TX)
+GPIO 18 → TX_GPS     (UART TX — GPS RX)
+```
+
+**Helike Satellite (ESP32-C3):**
+```text
+GPIO 0  → BUZZER      (Active buzzer)
+GPIO 1  → RESET       (RFM95W LoRa RST)
+GPIO 2  → DIO0        (RFM95W LoRa IRQ)
+GPIO 3  → LED         (Status indicator)
+GPIO 4  → SCK         (SPI Clock)
+GPIO 5  → MISO        (SPI MISO)
+GPIO 6  → MOSI        (SPI MOSI)
+GPIO 7  → NSS         (RFM95W LoRa CS)
+GPIO 8  → SDA         (I2C Data)
+GPIO 9  → SCL         (I2C Clock)
+GPIO 10 → CS_SD       (SD Card CS)
+GPIO 20 → TX_GPS      (UART RX)
+GPIO 21 → RX_GPS      (UART TX)
+```
+
+### Bibliotecas reais usadas
+
+| Biblioteca | Flight Computer | Helike |
+|------------|----------------|--------|
+| Adafruit BMP585 | Barômetro BMP585 | — |
+| Adafruit BME280 | — | Barômetro BME280 |
+| Adafruit BMP280 | Fallback BMP585 | Fallback BME280 |
+| Adafruit LSM6DS3 | IMU LSM6DS3 | — |
+| ICM-20602 | — | IMU ICM-20602 |
+| TinyGPS++ | GPS NEO-8M | GPS NEO-8M |
+| LoRa (sandeepmistry) | RFM95W LoRa | RFM95W LoRa |
+| ESP32Servo | Servo paraquedas | — |
+| FreeRTOS | FlightControlTask | — |
 
 ## Entregas relacionadas
 

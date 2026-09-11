@@ -16,6 +16,43 @@ Python é a linguagem padrão do setor para análise de dados, simulação e fer
 - VS Code (ou editor equivalente)
 - Conhecimento básico de terminal
 
+## Fluxo de Processamento de Dados
+
+```mermaid
+flowchart LR
+    A[Dados brutos] --> B[Parser]
+    B --> C[Validação]
+    C --> D[Processamento]
+    D --> E[Análise]
+    E --> F[Visualização]
+    
+    style A fill:#ff6b35,color:#fff
+    style F fill:#2ea043,color:#fff
+```
+
+## Pipeline de Telemetria
+
+```mermaid
+flowchart TD
+    subgraph "Firmware (ESP32)"
+        S[Sensores] --> F[Formatar pacote]
+        F --> L[Enviar LoRa/Serial]
+    end
+    
+    subgraph "Python (PC)"
+        R[Receber dados] --> P[Parser]
+        P --> V[Validar]
+        V --> S[Salvar CSV]
+        S --> A[Análise]
+        A --> G[Gráficos]
+    end
+    
+    L --> R
+    
+    style S fill:#ff6b35,color:#fff
+    style G fill:#2ea043,color:#fff
+```
+
 ---
 
 ## 1. Fundamentos para telemetria
@@ -210,12 +247,105 @@ print(f"Max:    {np.max(altitudes):.2f}")
 
 | Conceito | Projeto | Onde é usado |
 |---|---|---|
-| Leitura de CSV | Flight Computer | Logs de voo pós-missão |
+| Leitura de CSV | Flight Computer | Logs de voo pós-missão (22 campos) |
 | Parsing serial | Helike / FC | Validação de dados em testes de bancada |
-| Filtro EMA | Helike | Cálculo de Vz no firmware |
-| Detecção de apogeu | Flight Computer | Disparo do paraquedas |
+| Filtro EMA | Helike | Cálculo de Vz no firmware (alpha=0.4) |
+| Detecção de apogeu | Flight Computer | Disparo do paraquedas (FSM) |
 | numpy/scipy | Helike | Simulação aerodinâmica da asa SRAB |
 | matplotlib | Ambos | Relatórios e análises pós-voo |
+| Validação de dados | Ambos | Rejeição de NaN, ranges físicos |
+| Checksum | Flight Computer | Verificação de integridade do pacote |
+
+### Exemplo real: Análise de voo do Flight Computer
+
+```python
+import csv
+import matplotlib.pyplot as plt
+
+# Formato real do FC: 22 campos CSV
+# TEAM_ID,millis,count,altp,temp,umi,p,gx,gy,gz,ax,ay,az,vz,maxAltitude,state,alt,lat,lon,sat,parachute,rssi
+
+def analyze_flight_data(filename):
+    timestamps, altitudes, vz_data = [], [], []
+    
+    with open(filename) as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            timestamps.append(int(row['millis']) / 1000)  # ms → s
+            altitudes.append(float(row['altp']))  # altitude barométrica
+            vz_data.append(float(row['vz']))  # velocidade vertical
+    
+    # Encontrar apogeu (máxima altitude)
+    apogee_idx = altitudes.index(max(altitudes))
+    apogee_time = timestamps[apogee_idx]
+    apogee_alt = altitudes[apogee_idx]
+    
+    # Plotar perfil de voo
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
+    
+    ax1.plot(timestamps, altitudes, 'b-', label='Altitude')
+    ax1.axvline(x=apogee_time, color='r', linestyle='--', label=f'Apogeu: {apogee_alt:.1f}m')
+    ax1.set_xlabel('Tempo (s)')
+    ax1.set_ylabel('Altitude (m)')
+    ax1.set_title('Perfil de Voo - Flight Computer')
+    ax1.legend()
+    ax1.grid(True)
+    
+    ax2.plot(timestamps, vz_data, 'g-', label='Vz')
+    ax2.axhline(y=0, color='k', linestyle='-', alpha=0.3)
+    ax2.axvline(x=apogee_time, color='r', linestyle='--', label='Apogeu')
+    ax2.set_xlabel('Tempo (s)')
+    ax2.set_ylabel('Velocidade Vertical (m/s)')
+    ax2.set_title('Velocidade Vertical')
+    ax2.legend()
+    ax2.grid(True)
+    
+    plt.tight_layout()
+    plt.savefig('perfil_voo_fc.png')
+    print(f"Apogeu: {apogee_alt:.1f}m em t={apogee_time:.1f}s")
+```
+
+### Exemplo real: Parser do formato Helike
+
+```python
+# Formato Helike: 18 campos + terminador '#'
+# TEAM_ID,millis,count,altp,temp,umi,p,gp,gr,gy,ap,ar,ay,alt,lat,lon,sat,rssi#
+
+def parse_helike_packet(line):
+    """Parse pacote do satélite Helike"""
+    if not line.endswith('#'):
+        return None  # Pacote truncado/corrompido
+    
+    line = line.rstrip('#')
+    fields = line.split(',')
+    
+    if len(fields) != 18:
+        return None  # Número inválido de campos
+    
+    try:
+        return {
+            'team_id': int(fields[0]),
+            'millis': int(fields[1]),
+            'count': int(fields[2]),
+            'altp': float(fields[3]),    # altitude barométrica
+            'temp': float(fields[4]),    # temperatura
+            'umidity': float(fields[5]), # umidade (NAN se BMP280)
+            'pressure': float(fields[6]),# pressão hPa
+            'gyro_x': float(fields[7]),  # giroscópio X (rad/s)
+            'gyro_y': float(fields[8]),  # giroscópio Y
+            'gyro_z': float(fields[9]),  # giroscópio Z
+            'accel_x': float(fields[10]),# acelerômetro X (m/s²)
+            'accel_y': float(fields[11]),# acelerômetro Y
+            'accel_z': float(fields[12]),# acelerômetro Z
+            'gps_alt': float(fields[13]),# altitude GPS
+            'lat': float(fields[14]),    # latitude
+            'lon': float(fields[15]),    # longitude
+            'sat': int(fields[16]),      # satélites GPS
+            'rssi': float(fields[17])    # potência do sinal
+        }
+    except (ValueError, IndexError):
+        return None
+```
 
 ## Entregas relacionadas
 

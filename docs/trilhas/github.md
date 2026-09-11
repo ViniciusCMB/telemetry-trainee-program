@@ -10,6 +10,42 @@ GitHub é a plataforma central do treinamento e dos projetos da Serra Rocketry. 
 - Abrir e revisar Pull Requests
 - Colaborar usando o fluxo do GitHub
 
+## Fluxo de Trabalho com Git
+
+```mermaid
+flowchart TD
+    A[Clonar repositório] --> B[Criar branch]
+    B --> C[Desenvolver feature]
+    C --> D[Commit com tipo semântico]
+    D --> E[Push para GitHub]
+    E --> F[Abrir Pull Request]
+    F --> G{Revisão}
+    G -->|Aprovado| H[Merge na main]
+    G -->|Rejeitado| C
+    H --> I[Deletar branch]
+    
+    style A fill:#ff6b35,color:#fff
+    style H fill:#2ea043,color:#fff
+```
+
+## Estrutura de Branches
+
+```mermaid
+graph LR
+    main[main] --> feature1[nome-sobrenome]
+    main --> feature2[outro-nome]
+    
+    feature1 --> pr1[PR #1]
+    feature2 --> pr2[PR #2]
+    
+    pr1 -->|merge| main
+    pr2 -->|merge| main
+    
+    style main fill:#2ea043,color:#fff
+    style feature1 fill:#ff6b35,color:#fff
+    style feature2 fill:#ff6b35,color:#fff
+```
+
 ---
 
 ## 1. Git básico

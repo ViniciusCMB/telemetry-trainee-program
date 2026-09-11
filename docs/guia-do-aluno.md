@@ -18,6 +18,41 @@ C --> D[PR com template]
 D --> E[Revisao semanal]
 ```
 
+## Fluxo do Treinamento
+
+```mermaid
+flowchart TD
+    subgraph "Ciclo Semanal"
+        A[Ler material da semana] --> B[Fazer quiz pré-aula]
+        B --> C[Assistir mini-aula]
+        C --> D[Desenvolver tarefas]
+        D --> E[Abrir PR]
+        E --> F[Revisão semanal]
+    end
+    
+    F --> A
+    
+    style A fill:#ff6b35,color:#fff
+    style F fill:#2ea043,color:#fff
+```
+
+## Progressão das Semanas
+
+```mermaid
+graph LR
+    S0[S0: Setup] --> S1[S1: Python básico]
+    S1 --> S2[S2: Python aplicado]
+    S2 --> S3[S3: Arduino]
+    S3 --> S4[S4: PlatformIO]
+    S4 --> S5[S5: Integração]
+    S5 --> S6[S6: KiCad]
+    S6 --> S7[S7: Projetos reais]
+    S7 --> S8[S8: Capstone]
+    
+    style S0 fill:#8b949e,color:#fff
+    style S8 fill:#ff6b35,color:#fff
+```
+
 ## O que você deve entregar
 
 - Código funcional
@@ -31,6 +66,7 @@ D --> E[Revisao semanal]
 - Issues semanais: [Issues Semanais (Exemplos)](issues-semanais/README.md)
 - Trilhas: [Trilhas de Conteudo](trilhas/README.md)
 - Exemplos: [Exemplos Minimos](examples/README.md)
+- **Exemplos Visuais**: [Guia Visual](exemplos-visuais.md)
 
 ## Dicas
 
