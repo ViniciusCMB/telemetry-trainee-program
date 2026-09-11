@@ -19,8 +19,8 @@ PlatformIO é o ecossistema de desenvolvimento profissional usado no satélite H
 
 ```mermaid
 flowchart TD
-    A[ Criar projeto] --> B[Configurar platformio.ini]
-    B --> C[Escrever código em src/]
+    A[Criar projeto] --> B[Configurar platformio.ini]
+    B --> C[Escrever codigo em src/]
     C --> D[Bibliotecas em lib/]
     D --> E{Compilar}
     E -->|Sucesso| F[Upload para placa]

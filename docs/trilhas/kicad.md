@@ -19,7 +19,7 @@ KiCad é a ferramenta de design de PCB usada nos projetos da Serra Rocketry. O H
 
 ```mermaid
 flowchart TD
-    A[Criar projeto] --> B[Esquemático - Eeschema]
+    A[Criar projeto] --> B[Esquematico - Eeschema]
     B --> C[Adicionar componentes]
     C --> D[Conectar pinos - Wire]
     D --> E[ERC - Electrical Rules Check]
@@ -30,7 +30,7 @@ flowchart TD
     H --> DRC[Design Rules Check]
     DRC -->|Erros| H
     DRC -->|OK| I[Exportar Gerber]
-    I --> J[Enviar para fabricação]
+    I --> J[Enviar para fabricacao]
     
     style A fill:#ff6b35,color:#fff
     style J fill:#2ea043,color:#fff
@@ -40,7 +40,7 @@ flowchart TD
 
 ```mermaid
 graph LR
-    subgraph "KiCad"
+    subgraph KiCad
         E[Eeschema] --> P[Pcbnew]
         P --> G[Gerber Viewer]
     end

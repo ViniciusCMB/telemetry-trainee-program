@@ -14,12 +14,12 @@ GitHub é a plataforma central do treinamento e dos projetos da Serra Rocketry. 
 
 ```mermaid
 flowchart TD
-    A[Clonar repositório] --> B[Criar branch]
+    A[Clonar repositorio] --> B[Criar branch]
     B --> C[Desenvolver feature]
-    C --> D[Commit com tipo semântico]
+    C --> D[Commit com tipo semantico]
     D --> E[Push para GitHub]
     E --> F[Abrir Pull Request]
-    F --> G{Revisão}
+    F --> G{Revisao}
     G -->|Aprovado| H[Merge na main]
     G -->|Rejeitado| C
     H --> I[Deletar branch]

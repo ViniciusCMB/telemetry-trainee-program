@@ -21,8 +21,8 @@ O Arduino IDE é a porta de entrada para programação de microcontroladores. Ta
 
 ```mermaid
 flowchart TD
-    A[Início] --> B[setup executa 1x]
-    B --> C{loop infinito}
+    A[Inicio] --> B[setup executa 1x]
+    B --> C[loop infinito]
     C --> D[Ler sensores]
     D --> E[Processar dados]
     E --> F[Enviar serial/LoRa]

@@ -19,14 +19,14 @@ Esta trilha cobre os padrões de arquitetura usados nos projetos reais da Serra 
 
 ```mermaid
 flowchart TD
-    subgraph "Core 1 (Crítico)"
+    subgraph Core1_Critico
         FC[Flight Control Task]
         FC --> S[Ler Sensores]
         S --> D[Decidir Estado]
         D --> A[Acionar Servo]
     end
     
-    subgraph "Core 0 (Não-crítico)"
+    subgraph Core0_Nao_Critico
         T[Telemetry Task]
         T --> L[Enviar LoRa]
         L --> G[Log SD Card]

@@ -12,22 +12,22 @@ Este guia explica o fluxo do treinamento e o que se espera de cada entrega.
 
 ```mermaid
 flowchart LR
-A[Semana atual] --> B[Issue semanal]
-B --> C[Branch nome-sobrenome]
-C --> D[PR com template]
-D --> E[Revisao semanal]
+    A[Semana atual] --> B[Issue semanal]
+    B --> C[Branch nome-sobrenome]
+    C --> D[PR com template]
+    D --> E[Revisao semanal]
 ```
 
 ## Fluxo do Treinamento
 
 ```mermaid
 flowchart TD
-    subgraph "Ciclo Semanal"
-        A[Ler material da semana] --> B[Fazer quiz pré-aula]
+    subgraph Ciclo_Semanal
+        A[Ler material da semana] --> B[Fazer quiz pre-aula]
         B --> C[Assistir mini-aula]
         C --> D[Desenvolver tarefas]
         D --> E[Abrir PR]
-        E --> F[Revisão semanal]
+        E --> F[Revisao semanal]
     end
     
     F --> A

@@ -20,17 +20,17 @@ Esta trilha cobre os sensores e protocolos de comunicação usados nos projetos 
 
 ```mermaid
 flowchart LR
-    subgraph "Sensores"
+    subgraph Sensores
         BMP[BMP280/BME280]
         IMU[IMU]
         GPS[GPS]
     end
     
-    subgraph "MCU"
+    subgraph MCU
         ESP[ESP32-C3]
     end
     
-    subgraph "Saída"
+    subgraph Saida
         LORA[LoRa]
         SD[SD Card]
         SERIAL[Serial]
@@ -51,20 +51,20 @@ flowchart LR
 
 ```mermaid
 graph TB
-    subgraph I2C
+    subgraph I2C_Protocol
         SDA[SDA - Dados]
         SCL[SCL - Clock]
     end
     
-    subgraph SPI
+    subgraph SPI_Protocol
         MOSI[MOSI]
         MISO[MISO]
         SCK[SCK]
         CS[CS]
     end
     
-    I2C -->|2 fios| MCU1[MCU]
-    SPI -->|4 fios| MCU2[MCU]
+    I2C_Protocol -->|2 fios| MCU1[MCU]
+    SPI_Protocol -->|4 fios| MCU2[MCU]
     
     style MCU1 fill:#ff6b35,color:#fff
     style MCU2 fill:#2ea043,color:#fff

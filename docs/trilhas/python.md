@@ -21,10 +21,10 @@ Python é a linguagem padrão do setor para análise de dados, simulação e fer
 ```mermaid
 flowchart LR
     A[Dados brutos] --> B[Parser]
-    B --> C[Validação]
+    B --> C[Validacao]
     C --> D[Processamento]
-    D --> E[Análise]
-    E --> F[Visualização]
+    D --> E[Analise]
+    E --> F[Visualizacao]
     
     style A fill:#ff6b35,color:#fff
     style F fill:#2ea043,color:#fff
@@ -34,17 +34,17 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    subgraph "Firmware (ESP32)"
+    subgraph Firmware_ESP32
         S[Sensores] --> F[Formatar pacote]
         F --> L[Enviar LoRa/Serial]
     end
     
-    subgraph "Python (PC)"
+    subgraph Python_PC
         R[Receber dados] --> P[Parser]
         P --> V[Validar]
-        V --> S[Salvar CSV]
-        S --> A[Análise]
-        A --> G[Gráficos]
+        V --> S2[Salvar CSV]
+        S2 --> A[Analise]
+        A --> G[Graficos]
     end
     
     L --> R
